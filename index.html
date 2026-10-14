@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>📌 我的网址收藏夹</title>
+<style>
+  /* ============ 基础变量：柔和粉色系 ============ */
+  :root{
+    --bg:#FFF7F8;
+    --bg-2:#FFF1F3;
+    --card:#FFFFFF;
+    --primary:#FF6B81;
+    --primary-deep:#F04E68;
+    --primary-soft:#FFE9ED;
+    --primary-line:#FFD3DB;
+    --text:#332F2F;
+    --text-2:#7C7472;
+    --text-3:#ABA2A0;
+    --line:#F3EAEB;
+    --radius:18px;
+    --radius-sm:12px;
+    --shadow:0 6px 18px rgba(255,107,129,.08);
+    --shadow-hover:0 12px 28px rgba(255,107,129,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-size:14px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  input,select{font-family:inherit;outline:none;}
+  a{color:inherit;text-decoration:none;}
+
+  /* 顶部柔和光晕背景 */
+  .glow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .glow::before,.glow::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;}
+  .glow::before{width:420px;height:420px;background:#FFD9E0;top:-180px;left:-120px;}
+  .glow::after{width:380px;height:380px;background:#FFF0D6;top:-160px;right:-100px;}
+
+  /* ============ 顶栏 ============ */
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;gap:16px;
+    padding:14px 26px;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;color:var(--primary-deep);white-space:nowrap;}
+  .brand small{font-size:11px;font-weight:500;color:var(--text-3);letter-spacing:.5px;}
+
+  .search{
+    flex:1;max-width:460px;position:relative;display:flex;align-items:center;
+    background:var(--bg-2);border:1px solid transparent;
+    border-radius:999px;padding:0 14px;height:40px;
+    transition:.2s;
+  }
+  .search:focus-within{background:#fff;border-color:var(--primary-line);box-shadow:0 0 0 4px var(--primary-soft);}
+  .search .icon{font-size:13px;color:var(--text-3);margin-right:8px;}
+  .search input{flex:1;border:none;background:transparent;font-size:13.5px;color:var(--text);}
+  .search input::placeholder{color:var(--text-3);}
+  .search .clear{display:none;font-size:12px;color:var(--text-3);border-radius:50%;width:18px;height:18px;line-height:18px;text-align:center;}
+  .search .clear:hover{background:var(--primary-soft);color:var(--primary-deep);}
+  .search.has-value .clear{display:block;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    height:40px;padding:0 18px;border-radius:999px;
+    font-size:13.5px;font-weight:600;white-space:nowrap;transition:.18s;
+  }
+  .btn-primary{background:linear-gradient(135deg,#FF8B9C,#FF6B81);color:#fff;box-shadow:0 6px 16px rgba(255,107,129,.32);}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(255,107,129,.4);}
+  .btn-ghost{background:var(--primary-soft);color:var(--primary-deep);}
+  .btn-ghost:hover{background:var(--primary-line);}
+  .btn-mini{height:30px;padding:0 12px;font-size:12.5px;border-radius:999px;}
+
+  /* ============ 布局 ============ */
+  .layout{position:relative;z-index:1;display:flex;gap:22px;padding:22px 26px 60px;align-items:flex-start;}
+  .sidebar{
+    width:238px;flex:0 0 238px;position:sticky;top:90px;
+    background:var(--card);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 12px;
+    max-height:calc(100vh - 112px);overflow:auto;
+  }
+  .main{flex:1;min-width:0;}
+
+  .side-title{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:4px 10px 10px;font-size:12px;color:var(--text-3);letter-spacing:1px;
+  }
+  .side-title button{font-size:12px;color:var(--primary);font-weight:600;}
+  .side-title button:hover{color:var(--primary-deep);}
+
+  .nav-item{
+    display:flex;align-items:center;gap:9px;
+    padding:9px 10px;border-radius:var(--radius-sm);
+    font-size:13.5px;color:var(--text-2);cursor:pointer;transition:.15s;
+    margin-bottom:2px;
+  }
+  .nav-item:hover{background:var(--bg-2);color:var(--text);}
+  .nav-item.active{background:var(--primary-soft);color:var(--primary-deep);font-weight:600;}
+  .nav-item .emo{font-size:14px;width:18px;text-align:center;flex:0 0 18px;}
+  .nav-item .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .nav-item .cnt{font-size:11.5px;color:var(--text-3);background:var(--bg-2);border-radius:999px;padding:1px 8px;}
+  .nav-item.active .cnt{background:#fff;color:var(--primary-deep);}
+  .nav-item.lvl2{padding-left:34px;font-size:13px;}
+  .nav-item.lvl2 .dot{font-size:10px;color:var(--primary-line);}
+
+  /* ============ 内容头部 ============ */
+  .main-head{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:14px;margin-bottom:16px;padding:2px 4px;
+  }
+  .crumb{font-size:12px;color:var(--text-3);margin-bottom:4px;}
+  .crumb b{color:var(--primary-deep);}
+  .page-title{font-size:20px;font-weight:700;letter-spacing:.3px;}
+  .page-title .sub{font-size:12.5px;font-weight:500;color:var(--text-3);margin-left:8px;}
+
+  /* ============ 卡片网格 ============ */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px;}
+  .card{
+    position:relative;display:flex;flex-direction:column;gap:8px;
+    background:var(--card);border-radius:var(--radius);
+    padding:16px 16px 13px;box-shadow:var(--shadow);
+    border:1px solid transparent;transition:.2s;cursor:pointer;
+    animation:pop .28s ease both;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--primary-line);}
+
+  .card-top{display:flex;align-items:center;gap:9px;}
+  .avatar{
+    width:34px;height:34px;flex:0 0 34px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:700;color:#fff;
+  }
+  .card-name{flex:1;font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .emojis{display:flex;gap:4px;flex:0 0 auto;}
+  .emojis span{
+    display:inline-flex;align-items:center;
+    background:var(--primary-soft);border-radius:999px;
+    font-size:11.5px;padding:2px 7px;line-height:1.4;
+  }
+  .card-desc{font-size:12.8px;color:var(--text-2);line-height:1.65;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
+  .card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;}
+  .card-path{font-size:11.5px;color:var(--text-3);background:var(--bg-2);border-radius:8px;padding:2px 8px;}
+  .del{
+    font-size:12px;color:var(--text-3);padding:3px 8px;border-radius:8px;transition:.15s;
+  }
+  .del:hover{background:#FFEDEF;color:var(--primary-deep);}
+
+  .empty{
+    grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--text-3);
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  }
+  .empty .big{font-size:34px;display:block;margin-bottom:10px;opacity:.8;}
+  .empty p{font-size:13.5px;}
+
+  /* ============ 弹窗 ============ */
+  .mask{
+    position:fixed;inset:0;z-index:60;background:rgba(60,40,45,.32);
+    backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .mask.show{display:flex;animation:fade .18s ease both;}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{
+    width:100%;max-width:520px;max-height:86vh;overflow:auto;
+    background:var(--card);border-radius:20px;padding:22px 22px 18px;
+    box-shadow:0 20px 50px rgba(180,90,105,.24);animation:pop .22s ease both;
+  }
+  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .modal-head h3{font-size:16.5px;font-weight:700;}
+  .modal-head .x{font-size:15px;color:var(--text-3);width:28px;height:28px;border-radius:50%;}
+  .modal-head .x:hover{background:var(--bg-2);color:var(--text);}
+
+  .field{margin-bottom:13px;}
+  .field label{display:block;font-size:12.5px;color:var(--text-2);margin-bottom:6px;font-weight:600;}
+  .field .tip{font-size:11.5px;color:var(--text-3);font-weight:400;margin-left:6px;}
+  .ctrl{
+    width:100%;height:40px;padding:0 13px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--bg-2);
+    font-size:13.5px;color:var(--text);transition:.18s;
+  }
+  .ctrl:focus{background:#fff;border-color:var(--primary-line);box-shadow:0 0 0 4px var(--primary-soft);}
+  textarea.ctrl{height:auto;min-height:66px;padding:10px 13px;resize:vertical;line-height:1.6;}
+  .row2{display:flex;gap:12px;}
+  .row2 .field{flex:1;}
+  .modal-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;}
+
+  /* 分类管理 */
+  .cat-manage .cat-block{
+    border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:12px;margin-bottom:12px;background:var(--bg);
+  }
+  .cat-line{display:flex;align-items:center;gap:8px;}
+  .cat-line .emo-in{width:46px;height:34px;text-align:center;font-size:15px;
+    border:1px solid var(--line);border-radius:9px;background:#fff;}
+  .cat-line .nm-in{flex:1;height:34px;padding:0 10px;font-size:13.5px;
+    border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--text);}
+  .cat-line .cnt{font-size:11.5px;color:var(--text-3);}
+  .cat-line .rm{font-size:12px;color:var(--text-3);padding:5px 9px;border-radius:8px;}
+  .cat-line .rm:hover{background:#FFEDEF;color:var(--primary-deep);}
+  .sub-block{margin:10px 0 0 14px;padding-left:12px;border-left:2px dashed var(--primary-line);}
+  .sub-line{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+  .sub-line .emo-in{width:40px;height:31px;text-align:center;font-size:14px;
+    border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .sub-line .nm-in{flex:1;height:31px;padding:0 10px;font-size:13px;
+    border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);}
+  .add-line{display:flex;align-items:center;gap:7px;margin-top:8px;}
+  .add-line input{flex:1;height:31px;padding:0 10px;font-size:12.5px;
+    border:1px dashed var(--primary-line);border-radius:8px;background:#fff;color:var(--text);}
+  .add-line input.emo-in{flex:0 0 40px;width:40px;padding:0;text-align:center;}
+  .add-line .add{font-size:12.5px;color:var(--primary);font-weight:600;padding:5px 10px;border-radius:8px;}
+  .add-line .add:hover{background:var(--primary-soft);}
+  .new-cat{
+    display:flex;gap:8px;align-items:center;padding:12px;border-radius:var(--radius-sm);
+    background:var(--primary-soft);margin-bottom:16px;
+  }
+  .new-cat input{height:34px;border:1px solid #fff;border-radius:9px;background:#fff;
+    padding:0 10px;font-size:13px;}
+  .new-cat input.emo{flex:0 0 46px;width:46px;padding:0;text-align:center;font-size:15px;}
+  .new-cat input.nm{flex:1;}
+
+  /* 确认框 */
+  .confirm-modal{max-width:380px;text-align:center;padding:26px 24px 20px;}
+  .confirm-modal .ic{font-size:30px;margin-bottom:8px;}
+  .confirm-modal h3{font-size:16px;margin-bottom:8px;}
+  .confirm-modal p{font-size:13px;color:var(--text-2);line-height:1.7;}
+  .confirm-modal .modal-foot{justify-content:center;margin-top:20px;}
+  .btn-danger{background:linear-gradient(135deg,#FF8B9C,#FF6B81);color:#fff;box-shadow:0 6px 16px rgba(255,107,129,.3);}
+
+  /* Toast */
+  .toast{
+    position:fixed;left:50%;bottom:36px;transform:translate(-50%,20px);
+    background:rgba(51,47,47,.92);color:#fff;font-size:13px;
+    padding:9px 20px;border-radius:999px;z-index:99;opacity:0;
+    transition:.25s;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
+  /* 滚动条 */
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:#FFDCE3;border-radius:8px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  /* ============ 响应式 ============ */
+  @media (max-width:900px){
+    .topbar{flex-wrap:wrap;padding:12px 16px;gap:10px;}
+    .brand{font-size:16px;}
+    .search{order:3;flex:1 1 100%;max-width:none;}
+    .layout{flex-direction:column;padding:16px 16px 50px;gap:16px;}
+    .sidebar{position:static;width:100%;flex:none;max-height:none;}
+    .sub-list{display:flex;flex-wrap:wrap;gap:2px;padding-left:8px;}
+    .nav-item.lvl2{padding-left:12px;}
+    .grid{grid-template-columns:1fr;}
+    .row2{flex-direction:column;gap:0;}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="brand">📌 我的网址收藏夹 <small>BOOKMARKS</small></div>
+  <div class="search" id="searchBox">
+    <span class="icon">🔍</span>
+    <input id="searchInput" type="text" placeholder="搜索网站名称、描述或地址…" />
+    <button class="clear" id="searchClear" title="清空">✕</button>
+  </div>
+  <button class="btn btn-ghost" id="btnManage">🗂 管理分类</button>
+  <button class="btn btn-primary" id="btnAdd">＋ 添加网址</button>
+</header>
+
+<!-- ============ 布局 ============ -->
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-title">
+      <span>全部收藏 · <b id="sideTotal">0</b></span>
+      <button id="btnManage2">+ 新分类</button>
+    </div>
+    <div id="navList"></div>
+  </aside>
+
+  <main class="main">
+    <div class="main-head">
+      <div>
+        <div class="crumb" id="crumb"></div>
+        <div class="page-title" id="pageTitle">全部网址</div>
+      </div>
+      <div class="page-title sub" id="resultCount"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
+<!-- ============ 添加网址弹窗 ============ -->
+<div class="mask" id="maskLink">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>＋ 添加网址</h3>
+      <button class="x" data-close="maskLink">✕</button>
+    </div>
+    <form id="formLink">
+      <div class="field">
+        <label>网站名称</label>
+        <input class="ctrl" id="fName" placeholder="例如：GitHub" required />
+      </div>
+      <div class="field">
+        <label>网址链接</label>
+        <input class="ctrl" id="fUrl" placeholder="例如：github.com 或 https://github.com" required />
+      </div>
+      <div class="field">
+        <label>功能描述 <span class="tip">一句话说明它能做什么</span></label>
+        <textarea class="ctrl" id="fDesc" placeholder="例如：全球最大的代码托管平台，开源项目与协作开发首选。" required></textarea>
+      </div>
+      <div class="field">
+        <label>Emoji 标签 <span class="tip">1-2 个，用空格分隔，例如 🚀 ✨</span></label>
+        <input class="ctrl" id="fEmoji" placeholder="🚀 ✨" maxlength="12" />
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>一级分类</label>
+          <select class="ctrl" id="fCat"></select>
+        </div>
+        <div class="field">
+          <label>二级分类</label>
+          <select class="ctrl" id="fSub"></select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" data-close="maskLink">取消</button>
+        <button type="submit" class="btn btn-primary">保存收藏</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ 分类管理弹窗 ============ -->
+<div class="mask" id="maskCats">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>🗂 分类管理</h3>
+      <button class="x" data-close="maskCats">✕</button>
+    </div>
+    <div class="new-cat">
+      <input class="emo" id="newCatEmoji" placeholder="🏷️" maxlength="4" />
+      <input class="nm" id="newCatName" placeholder="新增一级分类名称，例如：娱乐类" maxlength="20" />
+      <button class="btn btn-primary btn-mini" id="btnAddCat">添加</button>
+    </div>
+    <div class="cat-manage" id="catManage"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close="maskCats">完成</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 确认弹窗 ============ -->
+<div class="mask" id="maskConfirm">
+  <div class="modal confirm-modal">
+    <div class="ic" id="cfIcon">🗑️</div>
+    <h3 id="cfTitle">确认删除？</h3>
+    <p id="cfMsg"></p>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="cfCancel">取消</button>
+      <button class="btn btn-danger" id="cfOk">删除</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   数据层：localStorage 持久化
+   ========================================================= */
+const STORAGE_KEY = 'xhs_bookmarks_v1';
+const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE0','#E79BC4','#6FC7C0'];
+
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+/* 默认数据：4 个一级分类 · 12 个二级子分类 · 33 条网址 */
+const SEED = {
+  categories: [
+    { id:'c_tool', emoji:'🛠️', name:'工具类', subs:[
+      { id:'s_search', emoji:'🔍', name:'搜索问答' },
+      { id:'s_office', emoji:'📝', name:'效率办公' },
+      { id:'s_util',   emoji:'🔧', name:'实用工具' }
+    ]},
+    { id:'c_study', emoji:'📚', name:'学习类', subs:[
+      { id:'s_code',   emoji:'💻', name:'编程开发' },
+      { id:'s_read',   emoji:'📖', name:'阅读知识' },
+      { id:'s_course', emoji:'🎓', name:'在线课程' }
+    ]},
+    { id:'c_life', emoji:'🌈', name:'生活类', subs:[
+      { id:'s_food', emoji:'🍜', name:'美食' },
+      { id:'s_trip', emoji:'🚄', name:'出行' },
+      { id:'s_shop', emoji:'🛒', name:'购物' }
+    ]},
+    { id:'c_create', emoji:'🎨', name:'创作类', subs:[
+      { id:'s_design', emoji:'🖌️', name:'设计素材' },
+      { id:'s_video',  emoji:'🎬', name:'视频剪辑' },
+      { id:'s_music',  emoji:'🎵', name:'音乐音效' }
+    ]}
+  ],
+  links: [
+    { id:uid(), name:'Google', url:'https://www.google.com', desc:'全球使用最广的搜索引擎，信息检索与查证首选。', emojis:'🔍 🌐', catId:'c_tool', subId:'s_search' },
+    { id:uid(), name:'Bing', url:'https://www.bing.com', desc:'微软出品的搜索引擎，支持 AI 对话式检索。', emojis:'🌀 💬', catId:'c_tool', subId:'s_search' },
+    { id:uid(), name:'Perplexity', url:'https://www.perplexity.ai', desc:'AI 搜索问答工具，直接给出带来源的答案。', emojis:'🤖 💡', catId:'c_tool', subId:'s_search' },
+    { id:uid(), name:'Notion', url:'https://www.notion.so', desc:'笔记、文档、数据库一体的协作工作空间。', emojis:'🗂️ ✨', catId:'c_tool', subId:'s_office' },
+    { id:uid(), name:'石墨文档', url:'https://shimo.im', desc:'在线文档与表格协作，多人实时同步编辑。', emojis:'📄 👥', catId:'c_tool', subId:'s_office' },
+    { id:uid(), name:'幕布', url:'https://mubu.com', desc:'大纲笔记工具，一键生成思维导图。', emojis:'🧠 🌳', catId:'c_tool', subId:'s_office' },
+    { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', catId:'c_tool', subId:'s_util' },
+    { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'🔳 📱', catId:'c_tool', subId:'s_util' },
+    { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', catId:'c_tool', subId:'s_util' },
+
+    { id:uid(), name:'GitHub', url:'https://github.com', desc:'全球最大代码托管平台，开源项目与协作开发首选。', emojis:'🐙 💻', catId:'c_study', subId:'s_code' },
+    { id:uid(), name:'MDN Web Docs', url:'https://developer.mozilla.org', desc:'Web 前端权威技术文档，标准与示例齐全。', emojis:'🧩 📘', catId:'c_study', subId:'s_code' },
+    { id:uid(), name:'Stack Overflow', url:'https://stackoverflow.com', desc:'程序员问答社区，报错与疑难问题的答案库。', emojis:'💬 🐞', catId:'c_study', subId:'s_code' },
+    { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'🌱 📗', catId:'c_study', subId:'s_code' },
+    { id:uid(), name:'知乎', url:'https://www.zhihu.com', desc:'中文问答社区，长文回答与经验分享聚集地。', emojis:'📘 💡', catId:'c_study', subId:'s_read' },
+    { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_study', subId:'s_read' },
+    { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_study', subId:'s_read' },
+    { id:uid(), name:'哔哩哔哩', url:'https://www.bilibili.com', desc:'综合性视频社区，技术教程与公开课资源丰富。', emojis:'📺 🎓', catId:'c_study', subId:'s_course' },
+    { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', catId:'c_study', subId:'s_course' },
+    { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', catId:'c_study', subId:'s_course' },
+
+    { id:uid(), name:'下厨房', url:'https://www.xiachufang.com', desc:'菜谱与做法社区，跟着步骤做家常菜。', emojis:'🍳 🥢', catId:'c_life', subId:'s_food' },
+    { id:uid(), name:'大众点评', url:'https://www.dianping.com', desc:'本地生活指南，找餐厅与看真实评价。', emojis:'⭐ 🍜', catId:'c_life', subId:'s_food' },
+    { id:uid(), name:'12306', url:'https://www.12306.cn', desc:'中国铁路官方购票平台，查票订票最可靠。', emojis:'🚄 🎫', catId:'c_life', subId:'s_trip' },
+    { id:uid(), name:'高德地图', url:'https://www.amap.com', desc:'地图导航与路线规划，支持实时路况。', emojis:'🗺️ 🚗', catId:'c_life', subId:'s_trip' },
+    { id:uid(), name:'携程旅行', url:'https://www.ctrip.com', desc:'订酒店、机票与旅行套餐的一站式平台。', emojis:'✈️ 🏨', catId:'c_life', subId:'s_trip' },
+    { id:uid(), name:'淘宝', url:'https://www.taobao.com', desc:'综合电商平台，商品品类最齐全。', emojis:'🛍️ 🧺', catId:'c_life', subId:'s_shop' },
+    { id:uid(), name:'京东', url:'https://www.jd.com', desc:'自营物流快，数码家电购买更省心。', emojis:'📦 🚚', catId:'c_life', subId:'s_shop' },
+    { id:uid(), name:'什么值得买', url:'https://www.smzdm.com', desc:'优惠信息与好价爆料，购物前比价神器。', emojis:'💰 🔥', catId:'c_life', subId:'s_shop' },
+
+    { id:uid(), name:'Unsplash', url:'https://unsplash.com', desc:'高质量免费图库，可商用高清摄影图。', emojis:'📷 🎞️', catId:'c_create', subId:'s_design' },
+    { id:uid(), name:'iconfont', url:'https://www.iconfont.cn', desc:'阿里巴巴矢量图标库，图标种类多可自定义配色。', emojis:'🎯 🖍️', catId:'c_create', subId:'s_design' },
+    { id:uid(), name:'花瓣网', url:'https://huaban.com', desc:'设计灵感与素材采集，做参考图板很方便。', emojis:'🌸 💗', catId:'c_create', subId:'s_design' },
+    { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', catId:'c_create', subId:'s_design' },
+    { id:uid(), name:'剪映', url:'https://www.capcut.cn', desc:'上手简单的中文剪辑工具，模板与自动字幕齐全。', emojis:'✂️ 🎬', catId:'c_create', subId:'s_video' },
+    { id:uid(), name:'B站创作中心', url:'https://member.bilibili.com', desc:'投稿与数据看板，创作者日常运营入口。', emojis:'🎥 📊', catId:'c_create', subId:'s_video' },
+    { id:uid(), name:'网易云音乐', url:'https://music.163.com', desc:'音乐播放与歌单社区，评论区常有好文案。', emojis:'🎧 🎶', catId:'c_create', subId:'s_music' },
+    { id:uid(), name:'爱给网', url:'https://www.aigei.com', desc:'免费音效与配乐素材库，剪辑配音必备。', emojis:'🎵 🔊', catId:'c_create', subId:'s_music' }
+  ]
+};
+
+let state = load();
+let filter = { cat: 'all', sub: null, keyword: '' };
+let confirmResolver = null;
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      if(data && Array.isArray(data.categories) && Array.isArray(data.links)) return data;
+    }
+  }catch(e){ /* 数据损坏则回退默认 */ }
+  return JSON.parse(JSON.stringify(SEED));
+}
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+/* =========================================================
+   工具函数
+   ========================================================= */
+const $  = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function normalizeUrl(u){
+  const v = u.trim();
+  if(!v) return '';
+  return /^https?:\/\//i.test(v) ? v : 'https://' + v;
+}
+function hostOf(u){
+  try{ return new URL(normalizeUrl(u)).hostname.replace(/^www\./,''); }catch(e){ return ''; }
+}
+function colorOf(str){
+  let h = 0;
+  for(let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 997;
+  return AVATAR_COLORS[h % AVATAR_COLORS.length];
+}
+function cleanEmoji(v){
+  const parts = String(v).split(/[\s,，、/|]+/).filter(Boolean).slice(0, 2);
+  return parts.join(' ');
+}
+function catById(id){ return state.categories.find(c => c.id === id) || null; }
+function subById(cat, id){ return cat && cat.subs ? cat.subs.find(s => s.id === id) || null : null; }
+function countLinks(catId, subId){
+  return state.links.filter(l => l.catId === catId && (!subId || l.subId === subId)).length;
+}
+
+let toastTimer = null;
+function toast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function openMask(id){ $(id).classList.add('show'); }
+function closeMask(id){ $(id).classList.remove('show'); }
+
+function askConfirm({ icon = '🗑️', title = '确认删除？', msg = '', okText = '删除' }){
+  $('cfIcon').textContent = icon;
+  $('cfTitle').textContent = title;
+  $('cfMsg').textContent = msg;
+  $('cfOk').textContent = okText;
+  openMask('maskConfirm');
+  return new Promise(resolve => { confirmResolver = resolve; });
+}
+function closeConfirm(result){
+  closeMask('maskConfirm');
+  if(confirmResolver){ confirmResolver(result); confirmResolver = null; }
+}
+
+/* =========================================================
+   渲染：侧边栏分类树
+   ========================================================= */
+function renderSidebar(){
+  $('sideTotal').textContent = state.links.length;
+
+  let html = '';
+  html += `<div class="nav-item ${filter.cat === 'all' ? 'active' : ''}" data-cat="all">
+      <span class="emo">📌</span><span class="nm">全部网址</span>
+      <span class="cnt">${state.links.length}</span></div>`;
+
+  state.categories.forEach(cat => {
+    const catActive = filter.cat === cat.id && !filter.sub;
+    html += `<div class="nav-item ${catActive ? 'active' : ''}" data-cat="${cat.id}">
+        <span class="emo">${esc(cat.emoji || '🏷️')}</span>
+        <span class="nm">${esc(cat.name)}</span>
+        <span class="cnt">${countLinks(cat.id)}</span></div>`;
+
+    (cat.subs || []).forEach(sub => {
+      const active = filter.cat === cat.id && filter.sub === sub.id;
+      html += `<div class="nav-item lvl2 ${active ? 'active' : ''}" data-cat="${cat.id}" data-sub="${sub.id}">
+          <span class="emo">${esc(sub.emoji || '·')}</span>
+          <span class="nm">${esc(sub.name)}</span>
+          <span class="cnt">${countLinks(cat.id, sub.id)}</span></div>`;
+    });
+  });
+
+  $('navList').innerHTML = html;
+
+  $('navList').querySelectorAll('.nav-item').forEach(el => {
+    el.onclick = () => {
+      filter.cat = el.dataset.cat;
+      filter.sub = el.dataset.sub || null;
+      renderSidebar(); renderMain();
+    };
+  });
+}
+
+/* =========================================================
+   渲染：主区卡片
+   ========================================================= */
+function renderMain(){
+  const cat  = filter.cat === 'all' ? null : catById(filter.cat);
+  const sub  = subById(cat, filter.sub);
+  const kw   = filter.keyword.trim().toLowerCase();
+
+  // 标题与面包屑
+  let title, crumb;
+  if(filter.cat === 'all'){ title = '全部网址'; crumb = '收藏夹 / <b>全部</b>'; }
+  else if(sub){ title = sub.name; crumb = `${esc(cat.name)} / <b>${esc(sub.name)}</b>`; }
+  else { title = cat ? cat.name : '全部网址'; crumb = `收藏夹 / <b>${esc(cat ? cat.name : '全部')}</b>`; }
+  if(kw){ crumb += ` · 搜索「${esc(filter.keyword.trim())}」`; }
+  $('pageTitle').innerHTML = esc(title);
+  $('crumb').innerHTML = crumb;
+
+  // 过滤
+  const list = state.links.filter(l => {
+    if(filter.cat !== 'all' && l.catId !== filter.cat) return false;
+    if(filter.sub && l.subId !== filter.sub) return false;
+    if(kw){
+      const hay = [l.name, l.url, l.desc].join(' ').toLowerCase();
+      if(!hay.includes(kw)) return false;
+    }
+    return true;
+  });
+
+  $('resultCount').textContent = `共 ${list.length} 个网址`;
+
+  if(!list.length){
+    const empty = state.links.length === 0
+      ? { icon:'🌱', text:'收藏夹还是空的，点击右上角「＋ 添加网址」开始收集吧' }
+      : { icon:'🔍', text:'没有找到匹配的网址，换个关键词或分类试试' };
+    $('grid').innerHTML = `<div class="empty"><span class="big">${empty.icon}</span><p>${empty.text}</p></div>`;
+    return;
+  }
+
+  $('grid').innerHTML = list.map(l => {
+    const c = catById(l.catId);
+    const s = subById(c, l.subId);
+    const path = [c ? `${c.emoji || '🏷️'} ${c.name}` : '未分类', s ? `${s.emoji || ''} ${s.name}` : null]
+      .filter(Boolean).join(' · ');
+    const emojis = cleanEmoji(l.emojis || '').split(' ').filter(Boolean)
+      .map(e => `<span>${esc(e)}</span>`).join('');
+    return `<a class="card" href="${esc(normalizeUrl(l.url))}" target="_blank" rel="noopener noreferrer" data-id="${l.id}">
+      <div class="card-top">
+        <span class="avatar" style="background:${colorOf(l.name)}">${esc((l.name || '?').trim().charAt(0).toUpperCase())}</span>
+        <span class="card-name">${esc(l.name)}</span>
+        <span class="emojis">${emojis}</span>
+      </div>
+      <p class="card-desc">${esc(l.desc || '')}</p>
+      <div class="card-foot">
+        <span class="card-path">${path}</span>
+        <button class="del" data-del="${l.id}">删除</button>
+      </div>
+    </a>`;
+  }).join('');
+
+  $('grid').querySelectorAll('[data-del]').forEach(btn => {
+    btn.onclick = async e => {
+      e.preventDefault(); e.stopPropagation();
+      const link = state.links.find(x => x.id === btn.dataset.del);
+      const ok = await askConfirm({
+        icon:'🗑️', title:'删除这条收藏？',
+        msg:`「${link ? link.name : ''}」将从收藏夹中移除，此操作不可撤销。`
+      });
+      if(!ok) return;
+      state.links = state.links.filter(x => x.id !== btn.dataset.del);
+      save(); renderSidebar(); renderMain();
+      toast('已删除 ✓');
+    };
+  });
+}
+
+/* =========================================================
+   添加网址
+   ========================================================= */
+function fillCatSelect(){
+  const sel = $('fCat');
+  sel.innerHTML = state.categories.map(c =>
+    `<option value="${c.id}">${esc(c.emoji || '🏷️')} ${esc(c.name)}</option>`).join('');
+  fillSubSelect();
+}
+function fillSubSelect(){
+  const cat = catById($('fCat').value);
+  const sel = $('fSub');
+  if(!cat || !(cat.subs || []).length){
+    sel.innerHTML = `<option value="">（该分类暂无子分类）</option>`;
+    sel.disabled = true;
+  }else{
+    sel.disabled = false;
+    sel.innerHTML = cat.subs.map(s =>
+      `<option value="${s.id}">${esc(s.emoji || '·')} ${esc(s.name)}</option>`).join('');
+  }
+}
+
+function openAddLink(preset){
+  if(!state.categories.length){
+    toast('请先创建一个分类～');
+    openCatManage();
+    return;
+  }
+  $('formLink').reset();
+  fillCatSelect();
+  if(preset && preset.cat){
+    $('fCat').value = preset.cat;
+    fillSubSelect();
+    if(preset.sub) $('fSub').value = preset.sub;
+  }
+  openMask('maskLink');
+  setTimeout(() => $('fName').focus(), 60);
+}
+
+$('formLink').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = $('fName').value.trim();
+  const urlRaw = $('fUrl').value.trim();
+  const desc = $('fDesc').value.trim();
+  const emojis = cleanEmoji($('fEmoji').value);
+  const catId = $('fCat').value;
+  const subId = $('fSub').disabled ? null : ($('fSub').value || null);
+
+  if(!name){ toast('请填写网站名称'); return; }
+  if(!urlRaw){ toast('请填写网址链接'); return; }
+  if(urlRaw.length > 1 && !/^https?:\/\/\S+$/i.test(normalizeUrl(urlRaw))){
+    toast('网址格式看起来不太对哦');
+    return;
+  }
+  if(state.links.some(l => l.url === normalizeUrl(urlRaw) && l.catId === catId && l.subId === subId)){
+    toast('该分类下已收藏过这个网址');
+    return;
+  }
+
+  state.links.unshift({
+    id: uid(), name, url: normalizeUrl(urlRaw), desc: desc || '暂无描述',
+    emojis: emojis || '🔖', catId, subId
+  });
+  save();
+  closeMask('maskLink');
+  filter.cat = catId; filter.sub = subId; filter.keyword = '';
+  $('searchInput').value = ''; $('searchBox').classList.remove('has-value');
+  renderSidebar(); renderMain();
+  toast('收藏成功 ✓');
+});
+
+/* =========================================================
+   分类管理：新增 / 重命名 / 删除
+   ========================================================= */
+function openCatManage(){ renderCatManage(); openMask('maskCats'); }
+
+function renderCatManage(){
+  const box = $('catManage');
+  if(!state.categories.length){
+    box.innerHTML = `<div class="empty" style="padding:30px"><span class="big">🏷️</span><p>还没有分类，先在下方添加一个吧</p></div>`;
+    return;
+  }
+  box.innerHTML = state.categories.map(cat => `
+    <div class="cat-block" data-cat="${cat.id}">
+      <div class="cat-line">
+        <input class="emo-in" data-act="cat-emoji" data-id="${cat.id}" value="${esc(cat.emoji || '')}" maxlength="4" placeholder="🏷️" />
+        <input class="nm-in" data-act="cat-name" data-id="${cat.id}" value="${esc(cat.name)}" maxlength="20" />
+        <span class="cnt">${countLinks(cat.id)}</span>
+        <button class="rm" data-act="cat-del" data-id="${cat.id}">删除</button>
+      </div>
+      <div class="sub-block">
+        ${(cat.subs || []).map(sub => `
+          <div class="sub-line">
+            <input class="emo-in" data-act="sub-emoji" data-cat="${cat.id}" data-id="${sub.id}" value="${esc(sub.emoji || '')}" maxlength="4" placeholder="·" />
+            <input class="nm-in" data-act="sub-name" data-cat="${cat.id}" data-id="${sub.id}" value="${esc(sub.name)}" maxlength="20" />
+            <span class="cnt">${countLinks(cat.id, sub.id)}</span>
+            <button class="rm" data-act="sub-del" data-cat="${cat.id}" data-id="${sub.id}">删除</button>
+          </div>`).join('')}
+        <div class="add-line">
+          <input class="emo-in" data-new-sub-emoji="${cat.id}" placeholder="🏷️" maxlength="4" />
+          <input data-new-sub-name="${cat.id}" placeholder="添加二级子分类…" maxlength="20" />
+          <button class="add" data-act="sub-add" data-id="${cat.id}">＋ 添加</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // 重命名（输入即生效，不重渲染弹窗以免丢失焦点）
+  box.querySelectorAll('input[data-act]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const act = inp.dataset.act, id = inp.dataset.id;
+      const cat = catById(inp.dataset.cat || id);
+      if(act === 'cat-emoji' && cat) cat.emoji = inp.value.trim() || '🏷️';
+      if(act === 'cat-name' && cat) cat.name = inp.value.trim() || cat.name;
+      if(act === 'sub-emoji'){
+        const s = subById(cat, id); if(s) s.emoji = inp.value.trim();
+      }
+      if(act === 'sub-name'){
+        const s = subById(cat, id); if(s && inp.value.trim()) s.name = inp.value.trim();
+      }
+      save(); renderSidebar(); renderMain();
+    });
+  });
+
+  // 删除一级分类
+  box.querySelectorAll('[data-act="cat-del"]').forEach(btn => {
+    btn.onclick = async () => {
+      const cat = catById(btn.dataset.id);
+      if(!cat) return;
+      const n = countLinks(cat.id);
+      const ok = await askConfirm({
+        icon:'⚠️', title:'删除整个分类？',
+        msg: n ? `「${cat.name}」及其 ${n} 条网址收藏都会被删除，操作不可撤销。` : `「${cat.name}」分类将被删除。`
+      });
+      if(!ok) return;
+      state.categories = state.categories.filter(c => c.id !== cat.id);
+      state.links = state.links.filter(l => l.catId !== cat.id);
+      if(filter.cat === cat.id){ filter.cat = 'all'; filter.sub = null; }
+      save(); renderCatManage(); renderSidebar(); renderMain();
+      toast('分类已删除');
+    };
+  });
+
+  // 删除二级分类
+  box.querySelectorAll('[data-act="sub-del"]').forEach(btn => {
+    btn.onclick = async () => {
+      const cat = catById(btn.dataset.cat);
+      const sub = subById(cat, btn.dataset.id);
+      if(!cat || !sub) return;
+      const n = countLinks(cat.id, sub.id);
+      const ok = await askConfirm({
+        icon:'⚠️', title:'删除子分类？',
+        msg: n ? `「${sub.name}」及其 ${n} 条网址收藏都会被删除。` : `「${sub.name}」子分类将被删除。`
+      });
+      if(!ok) return;
+      cat.subs = cat.subs.filter(s => s.id !== sub.id);
+      state.links = state.links.filter(l => l.subId !== sub.id);
+      if(filter.sub === sub.id){ filter.sub = null; }
+      save(); renderCatManage(); renderSidebar(); renderMain();
+      toast('子分类已删除');
+    };
+  });
+
+  // 新增二级分类
+  box.querySelectorAll('[data-act="sub-add"]').forEach(btn => {
+    const catId = btn.dataset.id;
+    btn.onclick = () => {
+      const nameIn = box.querySelector(`[data-new-sub-name="${catId}"]`);
+      const emoIn  = box.querySelector(`[data-new-sub-emoji="${catId}"]`);
+      const name = nameIn.value.trim();
+      if(!name){ toast('请输入子分类名称'); nameIn.focus(); return; }
+      const cat = catById(catId);
+      if(!cat) return;
+      cat.subs = cat.subs || [];
+      cat.subs.push({ id: uid(), name, emoji: emoIn.value.trim() || '·' });
+      save(); renderCatManage(); renderSidebar(); renderMain();
+      toast('子分类已添加 ✓');
+    };
+  });
+}
+
+$('btnAddCat').onclick = () => {
+  const emo = $('newCatEmoji').value.trim() || '🏷️';
+  const name = $('newCatName').value.trim();
+  if(!name){ toast('请输入分类名称'); $('newCatName').focus(); return; }
+  if(state.categories.some(c => c.name === name)){ toast('已存在同名分类'); return; }
+  state.categories.push({ id: uid(), name, emoji: emo, subs: [] });
+  $('newCatEmoji').value = ''; $('newCatName').value = '';
+  save(); renderCatManage(); renderSidebar(); renderMain();
+  toast('分类已添加 ✓');
+};
+
+$('newCatName').addEventListener('keydown', e => {
+  if(e.key === 'Enter'){ e.preventDefault(); $('btnAddCat').click(); }
+});
+
+/* =========================================================
+   事件绑定：搜索 / 弹窗开关
+   ========================================================= */
+$('searchInput').addEventListener('input', e => {
+  filter.keyword = e.target.value;
+  $('searchBox').classList.toggle('has-value', !!e.target.value);
+  renderMain();
+});
+$('searchClear').onclick = () => {
+  $('searchInput').value = '';
+  filter.keyword = '';
+  $('searchBox').classList.remove('has-value');
+  renderMain();
+  $('searchInput').focus();
+};
+
+$('btnAdd').onclick = () => openAddLink(
+  filter.cat !== 'all' ? { cat: filter.cat, sub: filter.sub } : null
+);
+$('btnManage').onclick = openCatManage;
+$('btnManage2').onclick = openCatManage;
+
+document.querySelectorAll('[data-close]').forEach(el => {
+  el.onclick = () => closeMask(el.dataset.close);
+});
+document.querySelectorAll('.mask').forEach(mask => {
+  mask.addEventListener('mousedown', e => {
+    if(e.target === mask && mask.id !== 'maskConfirm') closeMask(mask.id);
+  });
+});
+
+$('cfOk').onclick = () => closeConfirm(true);
+$('cfCancel').onclick = () => closeConfirm(false);
+
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  if($('maskConfirm').classList.contains('show')) closeConfirm(false);
+  else if($('maskLink').classList.contains('show')) closeMask('maskLink');
+  else if($('maskCats').classList.contains('show')) closeMask('maskCats');
+});
+
+$('fCat').addEventListener('change', fillSubSelect);
+
+/* =========================================================
+   启动
+   ========================================================= */
+renderSidebar();
+renderMain();
+</script>
+</body>
+</html>
