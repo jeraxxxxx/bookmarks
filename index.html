@@ -250,6 +250,10 @@
   ::-webkit-scrollbar-thumb{background:#FFDCE3;border-radius:8px;}
   ::-webkit-scrollbar-track{background:transparent;}
 
+  /* 只读模式：访客隐藏所有编辑入口 */
+  body.readonly #btnAdd, body.readonly #btnManage, body.readonly #btnManage2,
+  body.readonly .del{display:none !important;}
+
   /* ============ 响应式 ============ */
   @media (max-width:900px){
     .topbar{flex-wrap:wrap;padding:12px 16px;gap:10px;}
@@ -876,6 +880,9 @@ $('fCat').addEventListener('change', fillSubSelect);
 /* =========================================================
    启动
    ========================================================= */
+/* 只读模式：默认访客只读；带 #manage 后缀访问则开放完整管理功能 */
+if(location.hash !== '#manage') document.body.classList.add('readonly');
+
 renderSidebar();
 renderMain();
 </script>
