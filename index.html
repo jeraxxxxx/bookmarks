@@ -458,7 +458,32 @@ function load(){
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw){
       const data = JSON.parse(raw);
-      if(data && Array.isArray(data.categories) && Array.isArray(data.links)) return data;
+      if(data && Array.isArray(data.categories) && Array.isArray(data.links)){
+        // 合并新增默认数据：按 URL 去重，跳过已手动删除的条目/分类/子分类
+        const deleted = new Set(data.deletedUrls || []);
+        const deletedCats = new Set(data.deletedCats || []);
+        const deletedSubs = new Set(data.deletedSubs || []);
+        const urls = new Set(data.links.map(l => l.url));
+        SEED.links.forEach(l => {
+          if(!urls.has(l.url) && !deleted.has(l.url)
+             && !deletedCats.has(l.catId) && !deletedSubs.has(l.subId)){
+            data.links.push(Object.assign({}, l));
+          }
+        });
+        SEED.categories.forEach(sc => {
+          if(deletedCats.has(sc.id)) return;
+          const dc = data.categories.find(c => c.id === sc.id);
+          if(!dc){ data.categories.push(JSON.parse(JSON.stringify(sc))); }
+          else{
+            dc.subs = Array.isArray(dc.subs) ? dc.subs : [];
+            sc.subs.forEach(ss => {
+              if(!deletedSubs.has(ss.id) && !dc.subs.some(s => s.id === ss.id)) dc.subs.push(Object.assign({}, ss));
+            });
+          }
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        return data;
+      }
     }
   }catch(e){ /* 数据损坏则回退默认 */ }
   return JSON.parse(JSON.stringify(SEED));
@@ -625,6 +650,8 @@ function renderMain(){
         msg:`「${link ? link.name : ''}」将从收藏夹中移除，此操作不可撤销。`
       });
       if(!ok) return;
+      state.deletedUrls = Array.isArray(state.deletedUrls) ? state.deletedUrls : [];
+      if(link && link.url && !state.deletedUrls.includes(link.url)) state.deletedUrls.push(link.url);
       state.links = state.links.filter(x => x.id !== btn.dataset.del);
       save(); renderSidebar(); renderMain();
       toast('已删除 ✓');
@@ -766,6 +793,14 @@ function renderCatManage(){
         msg: n ? `「${cat.name}」及其 ${n} 条网址收藏都会被删除，操作不可撤销。` : `「${cat.name}」分类将被删除。`
       });
       if(!ok) return;
+      state.deletedUrls = Array.isArray(state.deletedUrls) ? state.deletedUrls : [];
+      state.deletedCats = Array.isArray(state.deletedCats) ? state.deletedCats : [];
+      state.deletedSubs = Array.isArray(state.deletedSubs) ? state.deletedSubs : [];
+      if(!state.deletedCats.includes(cat.id)) state.deletedCats.push(cat.id);
+      cat.subs.forEach(s => { if(!state.deletedSubs.includes(s.id)) state.deletedSubs.push(s.id); });
+      state.links.filter(l => l.catId === cat.id).forEach(l => {
+        if(l.url && !state.deletedUrls.includes(l.url)) state.deletedUrls.push(l.url);
+      });
       state.categories = state.categories.filter(c => c.id !== cat.id);
       state.links = state.links.filter(l => l.catId !== cat.id);
       if(filter.cat === cat.id){ filter.cat = 'all'; filter.sub = null; }
@@ -786,6 +821,12 @@ function renderCatManage(){
         msg: n ? `「${sub.name}」及其 ${n} 条网址收藏都会被删除。` : `「${sub.name}」子分类将被删除。`
       });
       if(!ok) return;
+      state.deletedUrls = Array.isArray(state.deletedUrls) ? state.deletedUrls : [];
+      state.deletedSubs = Array.isArray(state.deletedSubs) ? state.deletedSubs : [];
+      if(!state.deletedSubs.includes(sub.id)) state.deletedSubs.push(sub.id);
+      state.links.filter(l => l.subId === sub.id).forEach(l => {
+        if(l.url && !state.deletedUrls.includes(l.url)) state.deletedUrls.push(l.url);
+      });
       cat.subs = cat.subs.filter(s => s.id !== sub.id);
       state.links = state.links.filter(l => l.subId !== sub.id);
       if(filter.sub === sub.id){ filter.sub = null; }
