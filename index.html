@@ -390,7 +390,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：3 个一级分类 · 9 个二级子分类 · 31 条网址 */
+/* 默认数据：3 个一级分类 · 9 个二级子分类 · 32 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -440,6 +440,7 @@ const SEED = {
     { id:uid(), name:'MDN Web Docs', url:'https://developer.mozilla.org', desc:'Web 前端权威技术文档，标准与示例齐全。', emojis:'🧩 📘', catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'Stack Overflow', url:'https://stackoverflow.com', desc:'程序员问答社区，报错与疑难问题的答案库。', emojis:'💬 🐞', catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'🌱 📗', catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'立创开源硬件平台', url:'https://oshwhub.com/', desc:'开源硬件社区，海量电路与 PCB 工程可免费复刻学习。', emojis:'🔌 ⚡', catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'识典古籍', url:'https://www.shidianguji.com/?page_from=home_page', desc:'古籍数字化阅读平台，海量古籍免费在线阅读与检索。', emojis:'📜 🏛️', catId:'c_learn', subId:'s_read' },
