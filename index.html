@@ -385,74 +385,65 @@
 /* =========================================================
    数据层：localStorage 持久化
    ========================================================= */
-const STORAGE_KEY = 'xhs_bookmarks_v1';
+const STORAGE_KEY = 'xhs_bookmarks_v2';
 const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE0','#E79BC4','#6FC7C0'];
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：4 个一级分类 · 12 个二级子分类 · 33 条网址 */
+/* 默认数据：3 个一级分类 · 9 个二级子分类 · 30 条网址 */
 const SEED = {
   categories: [
-    { id:'c_tool', emoji:'🛠️', name:'工具类', subs:[
+    { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
       { id:'s_search', emoji:'🔍', name:'搜索问答' },
-      { id:'s_office', emoji:'📝', name:'效率办公' },
-      { id:'s_util',   emoji:'🔧', name:'实用工具' }
+      { id:'s_life',   emoji:'🏠', name:'生活服务' },
+      { id:'s_media',  emoji:'�', name:'社区影音' }
     ]},
-    { id:'c_study', emoji:'📚', name:'学习类', subs:[
-      { id:'s_code',   emoji:'💻', name:'编程开发' },
-      { id:'s_read',   emoji:'📖', name:'阅读知识' },
-      { id:'s_course', emoji:'🎓', name:'在线课程' }
+    { id:'c_software', emoji:'�', name:'软件', subs:[
+      { id:'s_office', emoji:'�', name:'办公协作' },
+      { id:'s_util',   emoji:'�', name:'实用工具' },
+      { id:'s_design', emoji:'�', name:'设计剪辑' }
     ]},
-    { id:'c_life', emoji:'🌈', name:'生活类', subs:[
-      { id:'s_food', emoji:'🍜', name:'美食' },
-      { id:'s_trip', emoji:'🚄', name:'出行' },
-      { id:'s_shop', emoji:'🛒', name:'购物' }
-    ]},
-    { id:'c_create', emoji:'🎨', name:'创作类', subs:[
-      { id:'s_design', emoji:'🖌️', name:'设计素材' },
-      { id:'s_video',  emoji:'🎬', name:'视频剪辑' },
-      { id:'s_music',  emoji:'🎵', name:'音乐音效' }
+    { id:'c_learn', emoji:'📚', name:'学习资源网址', subs:[
+      { id:'s_code',   emoji:'�', name:'编程开发' },
+      { id:'s_read',   emoji:'�', name:'阅读知识' },
+      { id:'s_course', emoji:'�', name:'在线课程' }
     ]}
   ],
   links: [
-    { id:uid(), name:'Google', url:'https://www.google.com', desc:'全球使用最广的搜索引擎，信息检索与查证首选。', emojis:'🔍 🌐', catId:'c_tool', subId:'s_search' },
-    { id:uid(), name:'Bing', url:'https://www.bing.com', desc:'微软出品的搜索引擎，支持 AI 对话式检索。', emojis:'🌀 💬', catId:'c_tool', subId:'s_search' },
-    { id:uid(), name:'Perplexity', url:'https://www.perplexity.ai', desc:'AI 搜索问答工具，直接给出带来源的答案。', emojis:'🤖 💡', catId:'c_tool', subId:'s_search' },
-    { id:uid(), name:'Notion', url:'https://www.notion.so', desc:'笔记、文档、数据库一体的协作工作空间。', emojis:'🗂️ ✨', catId:'c_tool', subId:'s_office' },
-    { id:uid(), name:'石墨文档', url:'https://shimo.im', desc:'在线文档与表格协作，多人实时同步编辑。', emojis:'📄 👥', catId:'c_tool', subId:'s_office' },
-    { id:uid(), name:'幕布', url:'https://mubu.com', desc:'大纲笔记工具，一键生成思维导图。', emojis:'🧠 🌳', catId:'c_tool', subId:'s_office' },
-    { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', catId:'c_tool', subId:'s_util' },
-    { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'🔳 📱', catId:'c_tool', subId:'s_util' },
-    { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', catId:'c_tool', subId:'s_util' },
+    { id:uid(), name:'Google', url:'https://www.google.com', desc:'全球使用最广的搜索引擎，信息检索与查证首选。', emojis:'🔍 🌐', catId:'c_common', subId:'s_search' },
+    { id:uid(), name:'Bing', url:'https://www.bing.com', desc:'微软出品的搜索引擎，支持 AI 对话式检索。', emojis:'🌀 💬', catId:'c_common', subId:'s_search' },
+    { id:uid(), name:'Perplexity', url:'https://www.perplexity.ai', desc:'AI 搜索问答工具，直接给出带来源的答案。', emojis:'🤖 💡', catId:'c_common', subId:'s_search' },
 
-    { id:uid(), name:'GitHub', url:'https://github.com', desc:'全球最大代码托管平台，开源项目与协作开发首选。', emojis:'🐙 💻', catId:'c_study', subId:'s_code' },
-    { id:uid(), name:'MDN Web Docs', url:'https://developer.mozilla.org', desc:'Web 前端权威技术文档，标准与示例齐全。', emojis:'🧩 📘', catId:'c_study', subId:'s_code' },
-    { id:uid(), name:'Stack Overflow', url:'https://stackoverflow.com', desc:'程序员问答社区，报错与疑难问题的答案库。', emojis:'💬 🐞', catId:'c_study', subId:'s_code' },
-    { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'🌱 📗', catId:'c_study', subId:'s_code' },
-    { id:uid(), name:'知乎', url:'https://www.zhihu.com', desc:'中文问答社区，长文回答与经验分享聚集地。', emojis:'📘 💡', catId:'c_study', subId:'s_read' },
-    { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_study', subId:'s_read' },
-    { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_study', subId:'s_read' },
-    { id:uid(), name:'哔哩哔哩', url:'https://www.bilibili.com', desc:'综合性视频社区，技术教程与公开课资源丰富。', emojis:'📺 🎓', catId:'c_study', subId:'s_course' },
-    { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', catId:'c_study', subId:'s_course' },
-    { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', catId:'c_study', subId:'s_course' },
+    { id:uid(), name:'知乎', url:'https://www.zhihu.com', desc:'中文问答社区，长文回答与经验分享聚集地。', emojis:'� 💡', catId:'c_common', subId:'s_media' },
+    { id:uid(), name:'哔哩哔哩', url:'https://www.bilibili.com', desc:'综合性视频社区，技术教程与公开课资源丰富。', emojis:'� 🎓', catId:'c_common', subId:'s_media' },
+    { id:uid(), name:'网易云音乐', url:'https://music.163.com', desc:'音乐播放与歌单社区，评论区常有好文案。', emojis:'🎧 🎶', catId:'c_common', subId:'s_media' },
 
-    { id:uid(), name:'下厨房', url:'https://www.xiachufang.com', desc:'菜谱与做法社区，跟着步骤做家常菜。', emojis:'🍳 🥢', catId:'c_life', subId:'s_food' },
-    { id:uid(), name:'大众点评', url:'https://www.dianping.com', desc:'本地生活指南，找餐厅与看真实评价。', emojis:'⭐ 🍜', catId:'c_life', subId:'s_food' },
-    { id:uid(), name:'12306', url:'https://www.12306.cn', desc:'中国铁路官方购票平台，查票订票最可靠。', emojis:'🚄 🎫', catId:'c_life', subId:'s_trip' },
-    { id:uid(), name:'高德地图', url:'https://www.amap.com', desc:'地图导航与路线规划，支持实时路况。', emojis:'🗺️ 🚗', catId:'c_life', subId:'s_trip' },
-    { id:uid(), name:'携程旅行', url:'https://www.ctrip.com', desc:'订酒店、机票与旅行套餐的一站式平台。', emojis:'✈️ 🏨', catId:'c_life', subId:'s_trip' },
-    { id:uid(), name:'淘宝', url:'https://www.taobao.com', desc:'综合电商平台，商品品类最齐全。', emojis:'🛍️ 🧺', catId:'c_life', subId:'s_shop' },
-    { id:uid(), name:'京东', url:'https://www.jd.com', desc:'自营物流快，数码家电购买更省心。', emojis:'📦 🚚', catId:'c_life', subId:'s_shop' },
-    { id:uid(), name:'什么值得买', url:'https://www.smzdm.com', desc:'优惠信息与好价爆料，购物前比价神器。', emojis:'💰 🔥', catId:'c_life', subId:'s_shop' },
+    { id:uid(), name:'淘宝', url:'https://www.taobao.com', desc:'综合电商平台，商品品类最齐全。', emojis:'�️ 🧺', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'京东', url:'https://www.jd.com', desc:'自营物流快，数码家电购买更省心。', emojis:'� �', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'什么值得买', url:'https://www.smzdm.com', desc:'优惠信息与好价爆料，购物前比价神器。', emojis:'� �', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'高德地图', url:'https://www.amap.com', desc:'地图导航与路线规划，支持实时路况。', emojis:'🗺️ �', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'12306', url:'https://www.12306.cn', desc:'中国铁路官方购票平台，查票订票最可靠。', emojis:'� 🎫', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'携程旅行', url:'https://www.ctrip.com', desc:'订酒店、机票与旅行套餐的一站式平台。', emojis:'✈️ 🏨', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'下厨房', url:'https://www.xiachufang.com', desc:'菜谱与做法社区，跟着步骤做家常菜。', emojis:'� �', catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'大众点评', url:'https://www.dianping.com', desc:'本地生活指南，找餐厅与看真实评价。', emojis:'⭐ �', catId:'c_common', subId:'s_life' },
 
-    { id:uid(), name:'Unsplash', url:'https://unsplash.com', desc:'高质量免费图库，可商用高清摄影图。', emojis:'📷 🎞️', catId:'c_create', subId:'s_design' },
-    { id:uid(), name:'iconfont', url:'https://www.iconfont.cn', desc:'阿里巴巴矢量图标库，图标种类多可自定义配色。', emojis:'🎯 🖍️', catId:'c_create', subId:'s_design' },
-    { id:uid(), name:'花瓣网', url:'https://huaban.com', desc:'设计灵感与素材采集，做参考图板很方便。', emojis:'🌸 💗', catId:'c_create', subId:'s_design' },
-    { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', catId:'c_create', subId:'s_design' },
-    { id:uid(), name:'剪映', url:'https://www.capcut.cn', desc:'上手简单的中文剪辑工具，模板与自动字幕齐全。', emojis:'✂️ 🎬', catId:'c_create', subId:'s_video' },
-    { id:uid(), name:'B站创作中心', url:'https://member.bilibili.com', desc:'投稿与数据看板，创作者日常运营入口。', emojis:'🎥 📊', catId:'c_create', subId:'s_video' },
-    { id:uid(), name:'网易云音乐', url:'https://music.163.com', desc:'音乐播放与歌单社区，评论区常有好文案。', emojis:'🎧 🎶', catId:'c_create', subId:'s_music' },
-    { id:uid(), name:'爱给网', url:'https://www.aigei.com', desc:'免费音效与配乐素材库，剪辑配音必备。', emojis:'🎵 🔊', catId:'c_create', subId:'s_music' }
+    { id:uid(), name:'Notion', url:'https://www.notion.so', desc:'笔记、文档、数据库一体的协作工作空间。', emojis:'�️ ✨', catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'石墨文档', url:'https://shimo.im', desc:'在线文档与表格协作，多人实时同步编辑。', emojis:'📄 👥', catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'幕布', url:'https://mubu.com', desc:'大纲笔记工具，一键生成思维导图。', emojis:'� 🌳', catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'� �', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'剪映', url:'https://www.capcut.cn', desc:'上手简单的中文剪辑工具，模板与自动字幕齐全。', emojis:'✂️ 🎬', catId:'c_software', subId:'s_design' },
+
+    { id:uid(), name:'GitHub', url:'https://github.com', desc:'全球最大代码托管平台，开源项目与协作开发首选。', emojis:'� �', catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'MDN Web Docs', url:'https://developer.mozilla.org', desc:'Web 前端权威技术文档，标准与示例齐全。', emojis:'🧩 �', catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'Stack Overflow', url:'https://stackoverflow.com', desc:'程序员问答社区，报错与疑难问题的答案库。', emojis:'💬 �', catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'� �', catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'� 📜', catId:'c_learn', subId:'s_course' },
+    { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'� 🎯', catId:'c_learn', subId:'s_course' }
   ]
 };
 
