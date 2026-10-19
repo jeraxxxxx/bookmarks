@@ -390,7 +390,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：3 个一级分类 · 9 个二级子分类 · 32 条网址 */
+/* 默认数据：3 个一级分类 · 9 个二级子分类 · 35 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -433,6 +433,8 @@ const SEED = {
     { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', catId:'c_software', subId:'s_util' },
     { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'🔳 📱', catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'刘明野的工具箱', url:'https://tools.liumingye.cn/', desc:'工具聚合导航站，含文档转换、二维码、临时邮箱、网速测试等常用小工具。', emojis:'🧰 🧭', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'MinerU', url:'https://mineru.net/OpenSourceTools/Extractor', desc:'智能文档解析工具，把 PDF 与网页一键提取为 Markdown，表格公式还原精准。', emojis:'📄 🤖', catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', catId:'c_software', subId:'s_design' },
     { id:uid(), name:'剪映', url:'https://www.capcut.cn', desc:'上手简单的中文剪辑工具，模板与自动字幕齐全。', emojis:'✂️ 🎬', catId:'c_software', subId:'s_design' },
 
@@ -444,6 +446,7 @@ const SEED = {
     { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'识典古籍', url:'https://www.shidianguji.com/?page_from=home_page', desc:'古籍数字化阅读平台，海量古籍免费在线阅读与检索。', emojis:'📜 🏛️', catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'SaltyLeo 的书架', url:'https://tstrs.me/search?ref=codernav.com', desc:'百万级电子书检索站，覆盖文学、历史、计算机等分类，可在线阅读与下载。', emojis:'📚 🔎', catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', catId:'c_learn', subId:'s_course' },
     { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', catId:'c_learn', subId:'s_course' }
   ]
