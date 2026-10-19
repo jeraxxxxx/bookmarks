@@ -52,7 +52,7 @@
     backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);
   }
-  .brand{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;color:var(--primary-deep);white-space:nowrap;}
+  .brand{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;color:var(--primary-deep);white-space:nowrap;text-decoration:none;cursor:pointer;}
   .brand small{font-size:11px;font-weight:500;color:var(--text-3);letter-spacing:.5px;}
 
   .search{
@@ -273,7 +273,7 @@
 
 <!-- ============ 顶栏 ============ -->
 <header class="topbar">
-  <div class="brand">📌 我的网址收藏夹 <small>BOOKMARKS</small></div>
+  <a class="brand" href="index.html">📌 我的网址收藏夹 <small>BOOKMARKS</small></a>
   <div class="search" id="searchBox">
     <span class="icon">🔍</span>
     <input id="searchInput" type="text" placeholder="搜索网站名称、描述或地址…" />
