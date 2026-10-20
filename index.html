@@ -390,7 +390,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：3 个一级分类 · 9 个二级子分类 · 35 条网址 */
+/* 默认数据：4 个一级分类 · 9 个二级子分类 · 17 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -407,7 +407,8 @@ const SEED = {
       { id:'s_code',   emoji:'💻', name:'编程开发' },
       { id:'s_read',   emoji:'📖', name:'阅读知识' },
       { id:'s_course', emoji:'🎓', name:'在线课程' }
-    ]}
+    ]},
+    { id:'c_github', emoji:'🐙', name:'GitHub 项目', subs:[] }
   ],
   links: [
     
