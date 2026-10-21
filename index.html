@@ -507,6 +507,12 @@ function load(){
             data.links.push(Object.assign({}, l));
           }
         });
+        // 已有条目按 URL 同步默认数据的文字标签
+        const seedByUrl = new Map(SEED.links.map(l => [l.url, l]));
+        data.links.forEach(dl => {
+          const sl = seedByUrl.get(dl.url);
+          if(sl && Array.isArray(sl.tags)) dl.tags = sl.tags;
+        });
         SEED.categories.forEach(sc => {
           if(deletedCats.has(sc.id)) return;
           const dc = data.categories.find(c => c.id === sc.id);
