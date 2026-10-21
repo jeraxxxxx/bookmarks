@@ -149,6 +149,11 @@
   }
   .card-desc{font-size:12.8px;color:var(--text-2);line-height:1.65;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 4px;}
+  .tags .tag{
+    font-size:11px;color:var(--primary-deep);background:var(--primary-soft);
+    border-radius:6px;padding:1px 7px;line-height:1.5;
+  }
   .card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;}
   .card-path{font-size:11.5px;color:var(--text-3);background:var(--bg-2);border-radius:8px;padding:2px 8px;}
   .del{
@@ -329,6 +334,10 @@
         <label>Emoji 标签 <span class="tip">1-2 个，用空格分隔，例如 🚀 ✨</span></label>
         <input class="ctrl" id="fEmoji" placeholder="🚀 ✨" maxlength="12" />
       </div>
+      <div class="field">
+        <label>文字标签 <span class="tip">2 个，用空格或逗号分隔，例如：免费 AI</span></label>
+        <input class="ctrl" id="fTags" placeholder="免费 AI" maxlength="20" />
+      </div>
       <div class="row2">
         <div class="field">
           <label>一级分类</label>
@@ -417,63 +426,63 @@ const SEED = {
   links: [
     
 
-    { id:uid(), name:'Notion', url:'https://www.notion.so', desc:'笔记、文档、数据库一体的协作工作空间。', emojis:'🗂️ ✨', catId:'c_software', subId:'s_office' },
-    { id:uid(), name:'石墨文档', url:'https://shimo.im', desc:'在线文档与表格协作，多人实时同步编辑。', emojis:'📄 👥', catId:'c_software', subId:'s_office' },
-    { id:uid(), name:'幕布', url:'https://mubu.com', desc:'大纲笔记工具，一键生成思维导图。', emojis:'🧠 🌳', catId:'c_software', subId:'s_office' },
-    { id:uid(), name:'LACKK 书签笔记', url:'https://b.lackk.com/', desc:'模块化书签导航与笔记页面，碎片化内容一站记录管理。', emojis:'🔗 🗒️', catId:'c_software', subId:'s_office' },
-    { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'🔳 📱', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'刘明野的工具箱', url:'https://tools.liumingye.cn/', desc:'工具聚合导航站，含文档转换、二维码、临时邮箱、网速测试等常用小工具。', emojis:'🧰 🧭', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'MinerU', url:'https://mineru.net/OpenSourceTools/Extractor', desc:'智能文档解析工具，把 PDF 与网页一键提取为 Markdown，表格公式还原精准。', emojis:'📄 🤖', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'SimpleTex', url:'https://simpletex.cn/', desc:'AI 公式识别平台，截图或传文档即刻转 LaTeX/Markdown，支持手写公式与化学结构。', emojis:'📐 🧮', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'TableConvert', url:'https://tableconvert.com/zh-cn/excel-to-markdown', desc:'表格格式互转工具，Excel、CSV、Markdown、JSON 等一键转换。', emojis:'📊 🔁', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'ToolFK', url:'https://www.toolfk.com/', desc:'免费在线工具箱，集成 AI 生图、抠图、格式转换、代码处理等大量实用小工具。', emojis:'🛠️ 🧰', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'Notion', url:'https://www.notion.so', desc:'笔记、文档、数据库一体的协作工作空间。', emojis:'🗂️ ✨', tags:['笔记','协作'], catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'石墨文档', url:'https://shimo.im', desc:'在线文档与表格协作，多人实时同步编辑。', emojis:'📄 👥', tags:['文档','协作'], catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'幕布', url:'https://mubu.com', desc:'大纲笔记工具，一键生成思维导图。', emojis:'🧠 🌳', tags:['大纲','思维导图'], catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'LACKK 书签笔记', url:'https://b.lackk.com/', desc:'模块化书签导航与笔记页面，碎片化内容一站记录管理。', emojis:'🔗 🗒️', tags:['书签','笔记'], catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'TinyPNG', url:'https://tinypng.com', desc:'在线图片压缩，几乎无损且体积极小。', emojis:'🖼️ 📉', tags:['图片','压缩'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'草料二维码', url:'https://cli.im', desc:'二维码生成与解码，支持图文、文件等多种形态。', emojis:'🔳 📱', tags:['二维码','生成'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'Convertio', url:'https://convertio.co/zh', desc:'万能在线格式转换，文档、图片、音视频全覆盖。', emojis:'🔄 📦', tags:['格式','转换'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'刘明野的工具箱', url:'https://tools.liumingye.cn/', desc:'工具聚合导航站，含文档转换、二维码、临时邮箱、网速测试等常用小工具。', emojis:'🧰 🧭', tags:['工具','导航'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'MinerU', url:'https://mineru.net/OpenSourceTools/Extractor', desc:'智能文档解析工具，把 PDF 与网页一键提取为 Markdown，表格公式还原精准。', emojis:'📄 🤖', tags:['文档','解析'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'SimpleTex', url:'https://simpletex.cn/', desc:'AI 公式识别平台，截图或传文档即刻转 LaTeX/Markdown，支持手写公式与化学结构。', emojis:'📐 🧮', tags:['公式','识别'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'TableConvert', url:'https://tableconvert.com/zh-cn/excel-to-markdown', desc:'表格格式互转工具，Excel、CSV、Markdown、JSON 等一键转换。', emojis:'📊 🔁', tags:['表格','转换'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'ToolFK', url:'https://www.toolfk.com/', desc:'免费在线工具箱，集成 AI 生图、抠图、格式转换、代码处理等大量实用小工具。', emojis:'🛠️ 🧰', tags:['工具','集合'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'Canva 可画', url:'https://www.canva.cn', desc:'在线设计工具，海报与封面模板即改即用。', emojis:'🎨 ✨', tags:['设计','模板'], catId:'c_software', subId:'s_design' },
    
 
     
-    { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'🌱 📗', catId:'c_learn', subId:'s_code' },
-    { id:uid(), name:'立创开源硬件平台', url:'https://oshwhub.com/', desc:'开源硬件社区，海量电路与 PCB 工程可免费复刻学习。', emojis:'🔌 ⚡', catId:'c_learn', subId:'s_code' },
-    { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', catId:'c_learn', subId:'s_read' },
-    { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', catId:'c_learn', subId:'s_read' },
-    { id:uid(), name:'识典古籍', url:'https://www.shidianguji.com/?page_from=home_page', desc:'古籍数字化阅读平台，海量古籍免费在线阅读与检索。', emojis:'📜 🏛️', catId:'c_learn', subId:'s_read' },
-    { id:uid(), name:'SaltyLeo 的书架', url:'https://tstrs.me/search?ref=codernav.com', desc:'百万级电子书检索站，覆盖文学、历史、计算机等分类，可在线阅读与下载。', emojis:'📚 🔎', catId:'c_learn', subId:'s_read' },
-    { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', catId:'c_learn', subId:'s_course' },
-    { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', catId:'c_learn', subId:'s_course' },
+    { id:uid(), name:'菜鸟教程', url:'https://www.runoob.com', desc:'中文入门教程合集，语法速查十分方便。', emojis:'🌱 📗', tags:['教程','入门'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'立创开源硬件平台', url:'https://oshwhub.com/', desc:'开源硬件社区，海量电路与 PCB 工程可免费复刻学习。', emojis:'🔌 ⚡', tags:['硬件','开源'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'微信读书', url:'https://weread.qq.com', desc:'在线阅读平台，海量电子书与划线读书笔记。', emojis:'📚 ✍️', tags:['电子书','阅读'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', tags:['课程','听书'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'识典古籍', url:'https://www.shidianguji.com/?page_from=home_page', desc:'古籍数字化阅读平台，海量古籍免费在线阅读与检索。', emojis:'📜 🏛️', tags:['古籍','阅读'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'SaltyLeo 的书架', url:'https://tstrs.me/search?ref=codernav.com', desc:'百万级电子书检索站，覆盖文学、历史、计算机等分类，可在线阅读与下载。', emojis:'📚 🔎', tags:['电子书','下载'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', tags:['慕课','高校'], catId:'c_learn', subId:'s_course' },
+    { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', tags:['课程','国际'], catId:'c_learn', subId:'s_course' },
 
-    { id:uid(), name:'无尽道路', url:'https://slowroads.io/', desc:'在可以无限实时生成的道路上驾驶的网页游戏，适合放空。', emojis:'🚗 🛣️', catId:'c_fun', subId:'s_game' },
-    { id:uid(), name:'强行对战!', url:'https://www.jazzvswaffles.com/', desc:'基于 AI 生成，把任意两个角色放在一起的跨战力 PK 游戏。', emojis:'⚔️ 🤖', catId:'c_fun', subId:'s_game' },
-    { id:uid(), name:'三消大战', url:'https://guivo.io/#/play-tutorial', desc:'基于 Elo 的世界服三消排位上分游戏，紧张刺激。', emojis:'🧩 🏆', catId:'c_fun', subId:'s_game' },
-    { id:uid(), name:'做房子模拟器', url:'https://rooms.xyz/', desc:'硬核从零开始打造属于自己的像素房子。', emojis:'🏠 🧱', catId:'c_fun', subId:'s_game' },
-    { id:uid(), name:'猜价格', url:'https://guesstheprice.net/', desc:'猜各种商品的价格小挑战。', emojis:'💰 🎯', catId:'c_fun', subId:'s_game' },
-    { id:uid(), name:'创意小游戏合集', url:'https://retryables.com/', desc:'5 款简单但别出心裁的小游戏。', emojis:'🎲 ✨', catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'无尽道路', url:'https://slowroads.io/', desc:'在可以无限实时生成的道路上驾驶的网页游戏，适合放空。', emojis:'🚗 🛣️', tags:['驾驶','放松'], catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'强行对战!', url:'https://www.jazzvswaffles.com/', desc:'基于 AI 生成，把任意两个角色放在一起的跨战力 PK 游戏。', emojis:'⚔️ 🤖', tags:['对战','AI'], catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'三消大战', url:'https://guivo.io/#/play-tutorial', desc:'基于 Elo 的世界服三消排位上分游戏，紧张刺激。', emojis:'🧩 🏆', tags:['三消','排位'], catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'做房子模拟器', url:'https://rooms.xyz/', desc:'硬核从零开始打造属于自己的像素房子。', emojis:'🏠 🧱', tags:['建造','像素'], catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'猜价格', url:'https://guesstheprice.net/', desc:'猜各种商品的价格小挑战。', emojis:'💰 🎯', tags:['竞猜','挑战'], catId:'c_fun', subId:'s_game' },
+    { id:uid(), name:'创意小游戏合集', url:'https://retryables.com/', desc:'5 款简单但别出心裁的小游戏。', emojis:'🎲 ✨', tags:['游戏','合集'], catId:'c_fun', subId:'s_game' },
 
-    { id:uid(), name:'语气转换器', url:'https://goblin.tools/', desc:'基于 AI，把同一句话用各种不同情绪和态度表达。', emojis:'💬 🎭', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'哄哄模拟器', url:'https://hong.greatdk.com/', desc:'看看能否哄好生气的 AI，高情商发言训练器。', emojis:'🥺 💗', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'扑克牌自定义器', url:'https://www.me.uk/cards/makeadeck.cgi', desc:'生成一套专属于你的扑克牌！', emojis:'🃏 ♠️', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'114514论证器', url:'https://lab.magiconch.com/homo/', desc:'输入任意数字，给出它与 114514 的数学论证链，纯整活工具。', emojis:'🤣 🔢', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'说的什么英语？', url:'http://archive.gameswithwords.org/WhichEnglish/', desc:'通过一套问题，检测你说的英语属于哪里的方言风格。', emojis:'🗣️ 🇬🇧', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'手写签名', url:'https://www.calligrapher.ai/', desc:'随机生成手写风格的英文签名。', emojis:'✍️ 🖋️', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'圣地巡礼地图', url:'https://anitabi.cn/map', desc:'用地图呈现二次元作品内场景的实际位置，可配合对比图生成器使用。', emojis:'🗺️ 🎌', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'推活日记', url:'https://ievent.life/', desc:'各种二次元 live、活动、地下偶像表演的集合资讯站。', emojis:'🎤 📅', catId:'c_fun', subId:'s_funny' },
-    { id:uid(), name:'水草造景大赛', url:'https://iaplc.com/c/', desc:'IAPLC 世界水草造景大赛官网，可以看到各国的获奖作品。', emojis:'🌿 🐠', catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'语气转换器', url:'https://goblin.tools/', desc:'基于 AI，把同一句话用各种不同情绪和态度表达。', emojis:'💬 🎭', tags:['AI','语气'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'哄哄模拟器', url:'https://hong.greatdk.com/', desc:'看看能否哄好生气的 AI，高情商发言训练器。', emojis:'🥺 💗', tags:['AI','整活'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'扑克牌自定义器', url:'https://www.me.uk/cards/makeadeck.cgi', desc:'生成一套专属于你的扑克牌！', emojis:'🃏 ♠️', tags:['扑克','生成'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'114514论证器', url:'https://lab.magiconch.com/homo/', desc:'输入任意数字，给出它与 114514 的数学论证链，纯整活工具。', emojis:'🤣 🔢', tags:['整活','数学'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'说的什么英语？', url:'http://archive.gameswithwords.org/WhichEnglish/', desc:'通过一套问题，检测你说的英语属于哪里的方言风格。', emojis:'🗣️ 🇬🇧', tags:['方言','测试'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'手写签名', url:'https://www.calligrapher.ai/', desc:'随机生成手写风格的英文签名。', emojis:'✍️ 🖋️', tags:['签名','生成'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'圣地巡礼地图', url:'https://anitabi.cn/map', desc:'用地图呈现二次元作品内场景的实际位置，可配合对比图生成器使用。', emojis:'🗺️ 🎌', tags:['二次元','地图'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'推活日记', url:'https://ievent.life/', desc:'各种二次元 live、活动、地下偶像表演的集合资讯站。', emojis:'🎤 📅', tags:['二次元','活动'], catId:'c_fun', subId:'s_funny' },
+    { id:uid(), name:'水草造景大赛', url:'https://iaplc.com/c/', desc:'IAPLC 世界水草造景大赛官网，可以看到各国的获奖作品。', emojis:'🌿 🐠', tags:['造景','欣赏'], catId:'c_fun', subId:'s_funny' },
 
-    { id:uid(), name:'Language Reactor', url:'https://www.languagereactor.com/', desc:'看 Netflix、YouTube 视频学外语的神器，双语字幕与词典即点即查。', emojis:'🌍 🎬', catId:'c_learn', subId:'s_course' },
-    { id:uid(), name:'历史车轮', url:'https://www.lishichelun.com/tool', desc:'用时间轴的形式展示历史上的人物生平和事件。', emojis:'📜 ⏳', catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'Language Reactor', url:'https://www.languagereactor.com/', desc:'看 Netflix、YouTube 视频学外语的神器，双语字幕与词典即点即查。', emojis:'🌍 🎬', tags:['外语','视频'], catId:'c_learn', subId:'s_course' },
+    { id:uid(), name:'历史车轮', url:'https://www.lishichelun.com/tool', desc:'用时间轴的形式展示历史上的人物生平和事件。', emojis:'📜 ⏳', tags:['历史','时间轴'], catId:'c_learn', subId:'s_read' },
 
-    { id:uid(), name:'Gamma', url:'https://gamma.app/', desc:'AI 生成 PPT，样式、排版、图片、文字内容一次搞定。', emojis:'📽️ 🤖', catId:'c_software', subId:'s_office' },
-    { id:uid(), name:'永不锁屏', url:'https://www.keepscreenon.com/', desc:'开着这个网页，让你的电脑永不锁屏。', emojis:'💡 🔓', catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'AI 成分鉴别器', url:'https://illuminarty.ai/en/', desc:'识别一张图片或文字有多大可能性是 AI 生成的。', emojis:'🔍 🤖', catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'Gamma', url:'https://gamma.app/', desc:'AI 生成 PPT，样式、排版、图片、文字内容一次搞定。', emojis:'📽️ 🤖', tags:['AI','PPT'], catId:'c_software', subId:'s_office' },
+    { id:uid(), name:'永不锁屏', url:'https://www.keepscreenon.com/', desc:'开着这个网页，让你的电脑永不锁屏。', emojis:'💡 🔓', tags:['屏幕','防锁屏'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'AI 成分鉴别器', url:'https://illuminarty.ai/en/', desc:'识别一张图片或文字有多大可能性是 AI 生成的。', emojis:'🔍 🤖', tags:['AI','检测'], catId:'c_software', subId:'s_util' },
 
-    { id:uid(), name:'Resource Boy', url:'https://resourceboy.com/', desc:'海量高质量免费设计资源，涵盖材质、笔刷、图案、mockup、艺术字。', emojis:'🎨 🎁', catId:'c_software', subId:'s_design' },
-    { id:uid(), name:'颜色代码', url:'https://encycolorpedia.cn/named', desc:'全球各种颜色的名称、参数、配色方案集合网站。', emojis:'🌈 🎨', catId:'c_software', subId:'s_design' },
-    { id:uid(), name:'全网APP图标', url:'https://pushkeen.ai/appstore-icons/8901', desc:'快速获取所有 App 的高质量图标。', emojis:'📱 🖼️', catId:'c_software', subId:'s_design' },
-    { id:uid(), name:'Suno', url:'https://suno.com/', desc:'可能是目前最好用的 AI 音乐生成器。', emojis:'🎵 🤖', catId:'c_software', subId:'s_design' },
-    { id:uid(), name:'ShotDeck', url:'https://shotdeck.com/welcome/home', desc:'上百万张影视剧集的静帧，配合构图分析和参数，方便参考学习。', emojis:'🎞️ 📷', catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'Resource Boy', url:'https://resourceboy.com/', desc:'海量高质量免费设计资源，涵盖材质、笔刷、图案、mockup、艺术字。', emojis:'🎨 🎁', tags:['设计','资源'], catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'颜色代码', url:'https://encycolorpedia.cn/named', desc:'全球各种颜色的名称、参数、配色方案集合网站。', emojis:'🌈 🎨', tags:['颜色','配色'], catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'全网APP图标', url:'https://pushkeen.ai/appstore-icons/8901', desc:'快速获取所有 App 的高质量图标。', emojis:'📱 🖼️', tags:['图标','下载'], catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'Suno', url:'https://suno.com/', desc:'可能是目前最好用的 AI 音乐生成器。', emojis:'🎵 🤖', tags:['AI','音乐'], catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'ShotDeck', url:'https://shotdeck.com/welcome/home', desc:'上百万张影视剧集的静帧，配合构图分析和参数，方便参考学习。', emojis:'🎞️ 📷', tags:['影视','构图'], catId:'c_software', subId:'s_design' },
 
-    { id:uid(), name:'医药信息查询', url:'https://www.dayi.org.cn/', desc:'由三甲医院副主任医师以上专家编写的医药信息查询平台。', emojis:'💊 🏥', catId:'c_common', subId:'s_life' },
-    { id:uid(), name:'低价平替', url:'https://www.pingti.app/', desc:'通过 AI 学习，对想买的东西提供一个平替关键词。', emojis:'🛒 💰', catId:'c_common', subId:'s_life' }
+    { id:uid(), name:'医药信息查询', url:'https://www.dayi.org.cn/', desc:'由三甲医院副主任医师以上专家编写的医药信息查询平台。', emojis:'💊 🏥', tags:['医药','健康'], catId:'c_common', subId:'s_life' },
+    { id:uid(), name:'低价平替', url:'https://www.pingti.app/', desc:'通过 AI 学习，对想买的东西提供一个平替关键词。', emojis:'🛒 💰', tags:['购物','平替'], catId:'c_common', subId:'s_life' }
   ]
 };
 
@@ -540,6 +549,9 @@ function colorOf(str){
 function cleanEmoji(v){
   const parts = String(v).split(/[\s,，、/|]+/).filter(Boolean).slice(0, 2);
   return parts.join(' ');
+}
+function cleanTags(v){
+  return String(v).split(/[\s,，、/|#＃]+/).filter(Boolean).slice(0, 2);
 }
 function catById(id){ return state.categories.find(c => c.id === id) || null; }
 function subById(cat, id){ return cat && cat.subs ? cat.subs.find(s => s.id === id) || null : null; }
@@ -632,7 +644,7 @@ function renderMain(){
     if(filter.cat !== 'all' && l.catId !== filter.cat) return false;
     if(filter.sub && l.subId !== filter.sub) return false;
     if(kw){
-      const hay = [l.name, l.url, l.desc].join(' ').toLowerCase();
+      const hay = [l.name, l.url, l.desc, (Array.isArray(l.tags) ? l.tags.join(' ') : '')].join(' ').toLowerCase();
       if(!hay.includes(kw)) return false;
     }
     return true;
@@ -655,6 +667,8 @@ function renderMain(){
       .filter(Boolean).join(' · ');
     const emojis = cleanEmoji(l.emojis || '').split(' ').filter(Boolean)
       .map(e => `<span>${esc(e)}</span>`).join('');
+    const tagsHtml = (Array.isArray(l.tags) ? l.tags : []).slice(0, 2)
+      .map(t => `<span class="tag">#${esc(t)}</span>`).join('');
     return `<a class="card" href="${esc(normalizeUrl(l.url))}" target="_blank" rel="noopener noreferrer" data-id="${l.id}">
       <div class="card-top">
         <span class="avatar" style="background:${colorOf(l.name)}">${esc((l.name || '?').trim().charAt(0).toUpperCase())}</span>
@@ -662,6 +676,7 @@ function renderMain(){
         <span class="emojis">${emojis}</span>
       </div>
       <p class="card-desc">${esc(l.desc || '')}</p>
+      ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ''}
       <div class="card-foot">
         <span class="card-path">${path}</span>
         <button class="del" data-del="${l.id}">删除</button>
@@ -732,6 +747,7 @@ $('formLink').addEventListener('submit', e => {
   const urlRaw = $('fUrl').value.trim();
   const desc = $('fDesc').value.trim();
   const emojis = cleanEmoji($('fEmoji').value);
+  const tags = cleanTags($('fTags').value);
   const catId = $('fCat').value;
   const subId = $('fSub').disabled ? null : ($('fSub').value || null);
 
@@ -748,7 +764,7 @@ $('formLink').addEventListener('submit', e => {
 
   state.links.unshift({
     id: uid(), name, url: normalizeUrl(urlRaw), desc: desc || '暂无描述',
-    emojis: emojis || '🔖', catId, subId
+    emojis: emojis || '🔖', tags, catId, subId
   });
   save();
   closeMask('maskLink');
