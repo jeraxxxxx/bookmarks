@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 48 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 51 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -482,7 +482,11 @@ const SEED = {
     { id:uid(), name:'ShotDeck', url:'https://shotdeck.com/welcome/home', desc:'上百万张影视剧集的静帧，配合构图分析和参数，方便参考学习。', emojis:'🎞️ 📷', tags:['影视','构图'], catId:'c_software', subId:'s_design' },
 
     { id:uid(), name:'医药信息查询', url:'https://www.dayi.org.cn/', desc:'由三甲医院副主任医师以上专家编写的医药信息查询平台。', emojis:'💊 🏥', tags:['医药','健康'], catId:'c_common', subId:'s_life' },
-    { id:uid(), name:'低价平替', url:'https://www.pingti.app/', desc:'通过 AI 学习，对想买的东西提供一个平替关键词。', emojis:'🛒 💰', tags:['购物','平替'], catId:'c_common', subId:'s_life' }
+    { id:uid(), name:'低价平替', url:'https://www.pingti.app/', desc:'通过 AI 学习，对想买的东西提供一个平替关键词。', emojis:'🛒 💰', tags:['购物','平替'], catId:'c_common', subId:'s_life' },
+
+    { id:uid(), name:'Wokwi', url:'https://wokwi.com/', desc:'在线 Arduino、ESP32、树莓派 Pico 模拟器，浏览器里直接跑硬件仿真与代码调试。', emojis:'🔌 🧪', tags:['硬件','仿真'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'Cirkit Designer', url:'https://www.cirkitdesigner.com/zh-hans/arduino-simulator', desc:'在线 Arduino 电路模拟器，拖拽元件连线并实时仿真运行代码。', emojis:'🔧 ⚡', tags:['电路','仿真'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'WeDuLab 教学工具集', url:'https://wedulab.com/?lang=zh-CN', desc:'面向课堂的交互式虚拟实验合集，覆盖物理、化学、生物、数学、地理。', emojis:'🧪 🏫', tags:['教学','实验'], catId:'c_learn', subId:'s_course' }
   ]
 };
 
