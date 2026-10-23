@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 55 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 64 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -448,6 +448,15 @@ const SEED = {
     { id:uid(), name:'得到', url:'https://www.dedao.cn', desc:'知识付费平台，课程与听书通勤路上也能学。', emojis:'🎧 🧠', tags:['课程','听书'], catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'识典古籍', url:'https://www.shidianguji.com/?page_from=home_page', desc:'古籍数字化阅读平台，海量古籍免费在线阅读与检索。', emojis:'📜 🏛️', tags:['古籍','阅读'], catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'SaltyLeo 的书架', url:'https://tstrs.me/search?ref=codernav.com', desc:'百万级电子书检索站，覆盖文学、历史、计算机等分类，可在线阅读与下载。', emojis:'📚 🔎', tags:['电子书','下载'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'BookLib', url:'https://booklib.org/zh/', desc:'专注数字图书资源整理与长期保存的平台，馆藏超 1500 万册，支持按书名、作者检索。', emojis:'📚 🏛️', tags:['电子书','书库'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'鹿鸣川', url:'https://lunarora.com/', desc:'中文电子书搜索与专题书单服务，可按书名、作者、ISBN、出版社查找，并附内容简介与评分。', emojis:'🦌 📖', tags:['电子书','搜索'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'24hBook', url:'https://24hbook.store/', desc:'电子书资源浏览站，按分类、热度与随机方式发现书籍。', emojis:'📕 🕐', tags:['电子书','浏览'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'鸠摩搜书', url:'https://www.jiumodiary.com/', desc:'电子书搜索引擎，聚合各大网盘与书库资源，输入书名即可找到多种格式。', emojis:'🕊️ 🔎', tags:['电子书','搜索'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'SoBooks', url:'https://sobooks.cc/', desc:'电子书分享站，提供 PDF、EPUB、MOBI 等多格式图书下载。', emojis:'📗 📥', tags:['电子书','下载'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'未来书库', url:'https://bks.thefuture.top/', desc:'非盈利电子书搜索站，输入书名即可检索并跳转资源。', emojis:'🔮 📚', tags:['电子书','搜索'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'书格', url:'https://www.shuge.org/', desc:'开放的数字古籍图书馆，提供高清古籍影印本免费浏览与下载。', emojis:'📜 🏯', tags:['古籍','下载'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'KZZ 漫画', url:'https://kzz.moe/', desc:'在线漫画阅读站，按题材、语言、篇幅、状态多维筛选，含繁体与日文作品。', emojis:'📖 🎨', tags:['漫画','在线'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'Library Genesis', url:'https://libgen.is/', desc:'知名学术电子书与论文资源库，覆盖大量外文教材与专著。', emojis:'🌐 📚', tags:['学术','电子书'], catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'中国大学MOOC', url:'https://www.icourse163.org', desc:'高校名师慕课平台，课程系统且可获认证。', emojis:'🏫 📜', tags:['慕课','高校'], catId:'c_learn', subId:'s_course' },
     { id:uid(), name:'Coursera', url:'https://www.coursera.org', desc:'国际名校在线课程，含专项课程与学位项目。', emojis:'🌍 🎯', tags:['课程','国际'], catId:'c_learn', subId:'s_course' },
 
