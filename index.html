@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 69 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 70 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -504,7 +504,8 @@ const SEED = {
     { id:uid(), name:'Cobalt', url:'https://cobalt.tools/', desc:'无广告的媒体下载工具，粘贴链接即可保存视频与音频，支持多个主流平台。', emojis:'⬇️ 🎬', tags:['下载','媒体'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Hi8 在线工具大全', url:'https://hi8.com/tools', desc:'200 个在线工具与测试，覆盖键盘鼠标、屏幕、时间日期、计算换算、写作文书等 13 类。', emojis:'🧰 🖱️', tags:['工具','测试'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'趁手小记', url:'https://vivitools.cn/', desc:'一站式在线小工具集，聚焦常用开发小工具，提升日常开发效率。', emojis:'🛠️ 🧰', tags:['工具','开发'], catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'人生工具集', url:'https://www.mylifetools.cn/', desc:'围绕生活的在线工具合集，覆盖日常生活、专业计算、开发进阶、网络冲浪等场景。', emojis:'🧰 🧭', tags:['工具','生活'], catId:'c_software', subId:'s_util' }
+    { id:uid(), name:'人生工具集', url:'https://www.mylifetools.cn/', desc:'围绕生活的在线工具合集，覆盖日常生活、专业计算、开发进阶、网络冲浪等场景。', emojis:'🧰 🧭', tags:['工具','生活'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'SimilarSites', url:'https://www.similarsites.com/', desc:'输入任意网址即可发现同类型相似网站，另有浏览器插件，浏览时一键找替代站点。', emojis:'🔍 🌐', tags:['相似网站','发现'], catId:'c_common', subId:'s_search' }
   ]
 };
 
