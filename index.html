@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 71 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 72 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -480,6 +480,7 @@ const SEED = {
 
     { id:uid(), name:'Language Reactor', url:'https://www.languagereactor.com/', desc:'看 Netflix、YouTube 视频学外语的神器，双语字幕与词典即点即查。', emojis:'🌍 🎬', tags:['外语','视频'], catId:'c_learn', subId:'s_course' },
     { id:uid(), name:'历史车轮', url:'https://www.lishichelun.com/tool', desc:'用时间轴的形式展示历史上的人物生平和事件。', emojis:'📜 ⏳', tags:['历史','时间轴'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'编程随想书单', url:'https://github.com/programthink/books', desc:'编程随想整理的电子书资源目录，覆盖政治、历史、经济、心理学、计算机等门类，附下载渠道。', emojis:'📚 🧭', tags:['书单','电子书'], catId:'c_learn', subId:'s_read' },
 
     { id:uid(), name:'Gamma', url:'https://gamma.app/', desc:'AI 生成 PPT，样式、排版、图片、文字内容一次搞定。', emojis:'📽️ 🤖', tags:['AI','PPT'], catId:'c_software', subId:'s_office' },
     { id:uid(), name:'永不锁屏', url:'https://www.keepscreenon.com/', desc:'开着这个网页，让你的电脑永不锁屏。', emojis:'💡 🔓', tags:['屏幕','防锁屏'], catId:'c_software', subId:'s_util' },
