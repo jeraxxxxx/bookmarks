@@ -534,11 +534,15 @@ function load(){
             data.links.push(Object.assign({}, l));
           }
         });
-        // 已有条目按 URL 同步默认数据的文字标签
+        // 已有条目按 URL 同步默认数据的文字标签与所属分类
         const seedByUrl = new Map(SEED.links.map(l => [l.url, l]));
         data.links.forEach(dl => {
           const sl = seedByUrl.get(dl.url);
-          if(sl && Array.isArray(sl.tags)) dl.tags = sl.tags;
+          if(sl && Array.isArray(sl.tags)){
+            dl.tags = sl.tags;
+            if(sl.catId) dl.catId = sl.catId;
+            if('subId' in sl) dl.subId = sl.subId;
+          }
         });
         SEED.categories.forEach(sc => {
           if(deletedCats.has(sc.id)) return;
