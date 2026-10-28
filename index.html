@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 73 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 74 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -508,7 +508,8 @@ const SEED = {
     { id:uid(), name:'趁手小记', url:'https://vivitools.cn/', desc:'一站式在线小工具集，聚焦常用开发小工具，提升日常开发效率。', emojis:'🛠️ 🧰', tags:['工具','开发'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'人生工具集', url:'https://www.mylifetools.cn/', desc:'围绕生活的在线工具合集，覆盖日常生活、专业计算、开发进阶、网络冲浪等场景。', emojis:'🧰 🧭', tags:['工具','生活'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'PotPlayer', url:'https://potplayer.tv/?lang=zh_CN', desc:'Windows 平台全能视频播放器，内置解码器，格式通吃且占用极低。', emojis:'🎬 ▶️', tags:['播放器','影音'], catId:'c_software', subId:'s_util' },
-    { id:uid(), name:'SimilarSites', url:'https://www.similarsites.com/', desc:'输入任意网址即可发现同类型相似网站，另有浏览器插件，浏览时一键找替代站点。', emojis:'🔍 🌐', tags:['相似网站','发现'], catId:'c_common', subId:'s_search' }
+    { id:uid(), name:'SimilarSites', url:'https://www.similarsites.com/', desc:'输入任意网址即可发现同类型相似网站，另有浏览器插件，浏览时一键找替代站点。', emojis:'🔍 🌐', tags:['相似网站','发现'], catId:'c_common', subId:'s_search' },
+    { id:uid(), name:'HeyPCB', url:'https://heypcb.ai/', desc:'AI 电路板设计工具，描述你要做的机器就自动生成原理图、布局与生产文件，可导出可编辑的 KiCad 工程。', emojis:'🔌 🤖', tags:['PCB','AI 设计'], catId:'c_software', subId:'s_util' }
   ]
 };
 
