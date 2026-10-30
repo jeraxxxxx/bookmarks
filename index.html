@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 76 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 77 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -503,6 +503,7 @@ const SEED = {
     { id:uid(), name:'MATLAB 代码站', url:'https://www.matlabcode.cn/', desc:'MATLAB 中文学习与代码资源站，含算法示例、教程与工具箱资料。', emojis:'📐 💻', tags:['MATLAB','代码'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'Manim Community', url:'https://www.manim.community/', desc:'3Blue1Brown 数学动画引擎的社区维护版，用 Python 代码制作精美数学动画。', emojis:'🎬 📐', tags:['动画','Python'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'HeyPCB', url:'https://heypcb.ai/', desc:'AI 电路板设计工具，描述你要做的机器就自动生成原理图、布局与生产文件，可导出可编辑的 KiCad 工程。', emojis:'🔌 🤖', tags:['PCB','AI 设计'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'Blueprint', url:'https://www.blueprint.io/', desc:'AI 硬件设计工具，说出你的想法就生成接线图、完整零件清单与真实购买链接和价格，没有工程背景也能动手搭。', emojis:'🧩 🔌', tags:['硬件','AI 设计'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'小众软件论坛', url:'https://meta.appinn.net/', desc:'小众软件官方社区，海量软件推荐、使用技巧与问题讨论。', emojis:'📦 💬', tags:['软件','社区'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Cobalt', url:'https://cobalt.tools/', desc:'无广告的媒体下载工具，粘贴链接即可保存视频与音频，支持多个主流平台。', emojis:'⬇️ 🎬', tags:['下载','媒体'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Hi8 在线工具大全', url:'https://hi8.com/tools', desc:'200 个在线工具与测试，覆盖键盘鼠标、屏幕、时间日期、计算换算、写作文书等 13 类。', emojis:'🧰 🖱️', tags:['工具','测试'], catId:'c_software', subId:'s_util' },
