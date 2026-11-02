@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 78 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 80 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -493,6 +493,7 @@ const SEED = {
     { id:uid(), name:'全网APP图标', url:'https://pushkeen.ai/appstore-icons/8901', desc:'快速获取所有 App 的高质量图标。', emojis:'📱 🖼️', tags:['图标','下载'], catId:'c_software', subId:'s_design' },
     { id:uid(), name:'Suno', url:'https://suno.com/', desc:'可能是目前最好用的 AI 音乐生成器。', emojis:'🎵 🤖', tags:['AI','音乐'], catId:'c_software', subId:'s_design' },
     { id:uid(), name:'ShotDeck', url:'https://shotdeck.com/welcome/home', desc:'上百万张影视剧集的静帧，配合构图分析和参数，方便参考学习。', emojis:'🎞️ 📷', tags:['影视','构图'], catId:'c_software', subId:'s_design' },
+    { id:uid(), name:'SolidCraft', url:'https://github.com/tangency-labs/solidcraft', desc:'纯 Rust 打造的开源参数化 3D CAD，桌面与网页端都能建模，支持 STEP 格式与 MCP 自动化调用。', emojis:'📐 🧊', tags:['3D 建模','CAD'], catId:'c_software', subId:'s_design' },
 
     { id:uid(), name:'医药信息查询', url:'https://www.dayi.org.cn/', desc:'由三甲医院副主任医师以上专家编写的医药信息查询平台。', emojis:'💊 🏥', tags:['医药','健康'], catId:'c_common', subId:'s_life' },
     { id:uid(), name:'低价平替', url:'https://www.pingti.app/', desc:'通过 AI 学习，对想买的东西提供一个平替关键词。', emojis:'🛒 💰', tags:['购物','平替'], catId:'c_common', subId:'s_life' },
@@ -501,6 +502,7 @@ const SEED = {
     { id:uid(), name:'Cirkit Designer', url:'https://www.cirkitdesigner.com/zh-hans/arduino-simulator', desc:'在线 Arduino 电路模拟器，拖拽元件连线并实时仿真运行代码。', emojis:'🔧 ⚡', tags:['电路','仿真'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'WeDuLab 教学工具集', url:'https://wedulab.com/?lang=zh-CN', desc:'面向课堂的交互式虚拟实验合集，覆盖物理、化学、生物、数学、地理。', emojis:'🧪 🏫', tags:['教学','实验'], catId:'c_learn', subId:'s_course' },
     { id:uid(), name:'PhET 互动仿真', url:'https://phet.colorado.edu/', desc:'科罗拉多大学出品的免费科学仿真实验，物理、化学、生物、数学、地球科学全覆盖。', emojis:'🔬 🧪', tags:['教学','仿真'], catId:'c_learn', subId:'s_course' },
+    { id:uid(), name:'DeepTutor', url:'https://github.com/HKUDS/DeepTutor', desc:'港大数据智能实验室开源的 AI 个性化导师，多智能体配合深度检索，提供长期陪伴式的学习辅导与互动讲解。', emojis:'🎓 🧠', tags:['AI 导师','学习'], catId:'c_learn', subId:'s_course' },
     { id:uid(), name:'MATLAB 代码站', url:'https://www.matlabcode.cn/', desc:'MATLAB 中文学习与代码资源站，含算法示例、教程与工具箱资料。', emojis:'📐 💻', tags:['MATLAB','代码'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'Manim Community', url:'https://www.manim.community/', desc:'3Blue1Brown 数学动画引擎的社区维护版，用 Python 代码制作精美数学动画。', emojis:'🎬 📐', tags:['动画','Python'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'HeyPCB', url:'https://heypcb.ai/', desc:'AI 电路板设计工具，描述你要做的机器就自动生成原理图、布局与生产文件，可导出可编辑的 KiCad 工程。', emojis:'🔌 🤖', tags:['PCB','AI 设计'], catId:'c_learn', subId:'s_code' },
