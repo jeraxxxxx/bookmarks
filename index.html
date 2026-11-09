@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：5 个一级分类 · 11 个二级子分类 · 85 条网址 */
+/* 默认数据：5 个一级分类 · 11 个二级子分类 · 86 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -512,6 +512,7 @@ const SEED = {
     { id:uid(), name:'HeyPCB', url:'https://heypcb.ai/', desc:'AI 电路板设计工具，描述你要做的机器就自动生成原理图、布局与生产文件，可导出可编辑的 KiCad 工程。', emojis:'🔌 🤖', tags:['PCB','AI 设计'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'Blueprint', url:'https://www.blueprint.io/', desc:'AI 硬件设计工具，说出你的想法就生成接线图、完整零件清单与真实购买链接和价格，没有工程背景也能动手搭。', emojis:'🧩 🔌', tags:['硬件','AI 设计'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'Cocoloop Hub', url:'https://hub.cocoloop.cn/popular', desc:'国内 AI Agent Skills 技能商店，收录 17 万+ 个 Skill，带安全认证与国内镜像加速，可按热度、场景分类浏览并一键安装。', emojis:'🧩 🤖', tags:['Agent','技能商店'], catId:'c_learn', subId:'s_code' },
+    { id:uid(), name:'ARIS 自动科研', url:'https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/blob/main/README_CN.md', desc:'纯 Markdown 编写的自主科研技能集，让 AI 在你睡觉时做机器学习研究：自动查文献、提想法、跑实验、交叉评审，支持 Claude Code、Codex 等各类智能体。', emojis:'⚔️ 🌙', tags:['AI 科研','智能体'], catId:'c_learn', subId:'s_code' },
     { id:uid(), name:'小众软件论坛', url:'https://meta.appinn.net/', desc:'小众软件官方社区，海量软件推荐、使用技巧与问题讨论。', emojis:'📦 💬', tags:['软件','社区'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Cobalt', url:'https://cobalt.tools/', desc:'无广告的媒体下载工具，粘贴链接即可保存视频与音频，支持多个主流平台。', emojis:'⬇️ 🎬', tags:['下载','媒体'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Hi8 在线工具大全', url:'https://hi8.com/tools', desc:'200 个在线工具与测试，覆盖键盘鼠标、屏幕、时间日期、计算换算、写作文书等 13 类。', emojis:'🧰 🖱️', tags:['工具','测试'], catId:'c_software', subId:'s_util' },
