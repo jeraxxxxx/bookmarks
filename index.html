@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 11 个二级子分类 · 95 条网址 */
+/* 默认数据：6 个一级分类 · 11 个二级子分类 · 96 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -523,6 +523,7 @@ const SEED = {
     { id:uid(), name:'三生蒸馏', url:'https://github.com/sanshengai/sansheng-distill', desc:'Claude Code 技能，把一本书或一整套视频课程蒸馏成单个可交互 HTML，支持 EPUB 解析，输出可直接阅读的深度笔记。', emojis:'🧪 📄', tags:['Skill','知识蒸馏'], catId:'c_ai', subId:null },
     { id:uid(), name:'BookForge Skills', url:'https://github.com/bookforge-ai/bookforge-skills', desc:'从非虚构书籍蒸馏出的 Agent 技能库，兼容 Claude Code、Codex、Gemini CLI、Cursor、Copilot 等 20 多个平台。', emojis:'📕 🧰', tags:['Skill','非虚构'], catId:'c_ai', subId:null },
     { id:uid(), name:'读书搭子', url:'https://github.com/silentdog918/book-reader-skill', desc:'基于艾德勒《如何阅读一本书》四层次阅读法的 Claude 技能，按基础、检视、分析、主题阅读四个层次陪你拆书。', emojis:'📖 🤝', tags:['Skill','阅读法'], catId:'c_ai', subId:null },
+    { id:uid(), name:'书籍百维拆解术', url:'https://github.com/dx2020z/100-angles', desc:'对任意书籍执行 100 个维度的深度认知拆解，输出结构化报告与可视化图谱，支持批判性阅读与跨书对比，可在 CodeBuddy、WorkBuddy 中调用。', emojis:'💯 🕸️', tags:['Skill','拆书'], catId:'c_ai', subId:null },
     { id:uid(), name:'小众软件论坛', url:'https://meta.appinn.net/', desc:'小众软件官方社区，海量软件推荐、使用技巧与问题讨论。', emojis:'📦 💬', tags:['软件','社区'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Cobalt', url:'https://cobalt.tools/', desc:'无广告的媒体下载工具，粘贴链接即可保存视频与音频，支持多个主流平台。', emojis:'⬇️ 🎬', tags:['下载','媒体'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Hi8 在线工具大全', url:'https://hi8.com/tools', desc:'200 个在线工具与测试，覆盖键盘鼠标、屏幕、时间日期、计算换算、写作文书等 13 类。', emojis:'🧰 🖱️', tags:['工具','测试'], catId:'c_software', subId:'s_util' },
