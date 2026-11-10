@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 11 个二级子分类 · 88 条网址 */
+/* 默认数据：6 个一级分类 · 11 个二级子分类 · 89 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -516,6 +516,7 @@ const SEED = {
     { id:uid(), name:'Cocoloop Hub', url:'https://hub.cocoloop.cn/popular', desc:'国内 AI Agent Skills 技能商店，收录 17 万+ 个 Skill，带安全认证与国内镜像加速，可按热度、场景分类浏览并一键安装。', emojis:'🧩 🤖', tags:['Agent','技能商店'], catId:'c_ai', subId:null },
     { id:uid(), name:'book-to-skill', url:'https://github.com/virgiliojr94/book-to-skill', desc:'把任意技术书 PDF 转换成 Claude Code 技能，拆分章节、提炼要点，让 AI 边工作边查阅这本书的知识。', emojis:'📖 🛠️', tags:['Skill','PDF 转技能'], catId:'c_ai', subId:null },
     { id:uid(), name:'李继刚的技能集', url:'https://github.com/lijigang/ljg-skills', desc:'李继刚开源的 Codex 自定义技能合集，二十多个中文思维技能：概念解剖、拆书、论文阅读、知识地图、商业模式画布、圆桌讨论等。', emojis:'🌿 🧠', tags:['Skill','中文技能'], catId:'c_ai', subId:null },
+    { id:uid(), name:'Book2Skills', url:'https://github.com/simbajigege/book2skills', desc:'用经典好书做高质量 AI 技能的开源项目，把书里的方法论提炼成可调用的 Skill，已涵盖投资与股票分析等方向。', emojis:'📚 ✨', tags:['Skill','读书'], catId:'c_ai', subId:null },
     { id:uid(), name:'小众软件论坛', url:'https://meta.appinn.net/', desc:'小众软件官方社区，海量软件推荐、使用技巧与问题讨论。', emojis:'📦 💬', tags:['软件','社区'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Cobalt', url:'https://cobalt.tools/', desc:'无广告的媒体下载工具，粘贴链接即可保存视频与音频，支持多个主流平台。', emojis:'⬇️ 🎬', tags:['下载','媒体'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Hi8 在线工具大全', url:'https://hi8.com/tools', desc:'200 个在线工具与测试，覆盖键盘鼠标、屏幕、时间日期、计算换算、写作文书等 13 类。', emojis:'🧰 🖱️', tags:['工具','测试'], catId:'c_software', subId:'s_util' },
