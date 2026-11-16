@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 11 个二级子分类 · 105 条网址 */
+/* 默认数据：6 个一级分类 · 11 个二级子分类 · 106 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -489,6 +489,7 @@ const SEED = {
     { id:uid(), name:'Starter Story', url:'https://www.starterstory.com/', desc:'收录 3900 多个真实盈利项目的创业案例库，能看到每个项目月入多少、用什么技术搭、花多少钱起步、怎么获客，并按 39 个主题分类检索。', emojis:'💰 🚀', tags:['创业','商业案例'], catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'数字说文', url:'https://szsw.bnu.edu.cn/', desc:'北师大汉字全息系统旗下的《说文解字》数字化平台，可按字头、部首、全文、构形、古音检索，查看字形演变、部件拆分与笔画笔顺，并联动碑刻典藏资料。', emojis:'🀄 📜', tags:['汉字','字源'], catId:'c_learn', subId:'s_read' },
     { id:uid(), name:'汉字全息资源应用系统', url:'https://qxk.bnu.edu.cn/', desc:'北师大汉字全息资源主平台，从形、音、义、用、码五个维度呈现汉字属性体系，支持单字查询、综合检索、历代辞书（字书/韵书/训诂书/字典）检索与构形、声韵、训释属性系联。', emojis:'🔍 🈶', tags:['汉字','文字学'], catId:'c_learn', subId:'s_read' },
+    { id:uid(), name:'ChinaTextbook 教材库', url:'https://github.com/Chiowe/ChinaTextbook-', desc:'开源中小学与大学 PDF 教材仓库，覆盖小学到高中各学科及同济高数、线性代数、概率论等大学教材，按学科目录直接下载；超大文件拆成 35MB 分卷并附合并工具。', emojis:'📚 📥', tags:['教材','PDF'], catId:'c_learn', subId:'s_read' },
 
     { id:uid(), name:'Gamma', url:'https://gamma.app/', desc:'AI 生成 PPT，样式、排版、图片、文字内容一次搞定。', emojis:'📽️ 🤖', tags:['AI','PPT'], catId:'c_software', subId:'s_office' },
     { id:uid(), name:'永不锁屏', url:'https://www.keepscreenon.com/', desc:'开着这个网页，让你的电脑永不锁屏。', emojis:'💡 🔓', tags:['屏幕','防锁屏'], catId:'c_software', subId:'s_util' },
