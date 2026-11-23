@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 13 个二级子分类 · 111 条网址 */
+/* 默认数据：6 个一级分类 · 13 个二级子分类 · 112 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -549,6 +549,7 @@ const SEED = {
     { id:uid(), name:'LocModel', url:'https://locmodel.com/', desc:'本地大模型一键部署客户端，自动识别显卡与内存并推荐能流畅运行的模型，一键装好 llama.cpp 引擎，支持 HuggingFace 下载或导入 GGUF，还能本地画图、生成视频和跑 Agent，全程离线。', emojis:'💻 🧠', tags:['本地模型','离线 AI'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'软仓', url:'https://ruancang.net/', desc:'软件下载资源站，按常用软件、Adobe 全家桶、CAD 制图、三维建模、图像设计、建筑 BIM、视频音频、数据分析、机械工业、电子电路分类整理安装包与安装教程。', emojis:'📦 🖥️', tags:['软件下载','资源'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'Komi Store', url:'https://git.hiwiki.org/zh-CN/repo/komi-store/komi-store', desc:'免费开源的跨平台应用商店，浏览、发现并一键安装 GitHub、Codeberg、Forgejo 上开发者发布的应用，支持 Windows、macOS、Linux、Android，带下载镜像与 13 种语言界面。', emojis:'🏪 📦', tags:['应用商店','开源'], catId:'c_software', subId:'s_util' },
+    { id:uid(), name:'TVBox Desktop', url:'https://github.com/hgtuj5688/tvbox-desktop', desc:'纯白极简的 Windows 影视聚合客户端，基于 Electron + React + TypeScript 构建，支持 TVBox 接口与 IPTV 直播源、HLS 播放，MIT 开源，可在 Releases 下载安装包。', emojis:'📺 🍿', tags:['影视','开源'], catId:'c_software', subId:'s_util' },
     { id:uid(), name:'SimilarSites', url:'https://www.similarsites.com/', desc:'输入任意网址即可发现同类型相似网站，另有浏览器插件，浏览时一键找替代站点。', emojis:'🔍 🌐', tags:['相似网站','发现'], catId:'c_common', subId:'s_search' },
     { id:uid(), name:'SkyArtery 导航', url:'https://skyartery.net/', desc:'个人整理的大型网址导航站，汇总影视、音乐、图书、游戏、软件下载、财经资讯等二十余类资源入口，一站逛遍全网。', emojis:'🧭 🌐', tags:['导航','合集'], catId:'c_common', subId:'s_search' }
   ]
