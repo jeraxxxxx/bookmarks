@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 13 个二级子分类 · 112 条网址 */
+/* 默认数据：6 个一级分类 · 13 个二级子分类 · 113 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -537,6 +537,7 @@ const SEED = {
     { id:uid(), name:'百书变技能', url:'https://github.com/muyuhill/100books-to-skills', desc:'把商业、成长类好书的核心框架提炼成 AI 可调用的 Skill，不是摘要而是可执行的思维模块，已覆盖《原子习惯》《流量秘密》等 30 本书。', emojis:'📚 🧠', tags:['Skill','思维框架'], catId:'c_ai', subId:'s_skill' },
     { id:uid(), name:'Book to Webpage', url:'https://github.com/crayon-ai/book-to-webpage', desc:'Claude Code 技能，把一本书（PDF / EPUB / Markdown）拆成知识库后生成可点击探索的单文件 HTML 学习页，内容处处标注书中出处，支持追问与 6 套主题换肤。', emojis:'📖 🌐', tags:['Skill','交互网页'], catId:'c_ai', subId:'s_skill' },
     { id:uid(), name:'Light Science', url:'https://github.com/Light0305/Light-Science', desc:'科研工作流技能包，把文献检索、实验设计、科研绘图、论文写作、记忆与项目协作串成完整链路，适配 Claude Code、Codex 等智能体。', emojis:'🔬 📄', tags:['Skill','科研'], catId:'c_ai', subId:'s_skill' },
+    { id:uid(), name:'狗头军师', url:'https://github.com/shengjidaguai-china/goutoujunshi/tree/main', desc:'一个先接住情绪、再分析关系并给出可执行策略的 Codex 恋爱军师，内置心理、法律、社会、人文、哲学、婚姻家庭与性学知识库，支持多元关系，MIT 开源。', emojis:'🐶 💡', tags:['Skill','情感咨询'], catId:'c_ai', subId:'s_skill' },
     { id:uid(), name:'AI Short', url:'https://www.aishort.top/', desc:'精选 AI 提示词库，收录写作润色、翻译、小红书风格改写、论文写作、口播脚本、Midjourney 出图等场景模板，替换方括号占位符即可一键复制使用，适配 ChatGPT、DeepSeek、Claude、Gemini。', emojis:'💡 📋', tags:['提示词','AI 工具'], catId:'c_ai', subId:'s_prompt' },
     { id:uid(), name:'Prompt123', url:'https://www.prompt123.cn/', desc:'中文 AI 提示词精选库，分文本、图片、视频三大板块，收录角色提示词、Midjourney 出图、Seedance 视频提示词等案例，附效果图与 AI 资讯周刊。', emojis:'💡 ✨', tags:['提示词','灵感'], catId:'c_ai', subId:'s_prompt' },
     { id:uid(), name:'小众软件论坛', url:'https://meta.appinn.net/', desc:'小众软件官方社区，海量软件推荐、使用技巧与问题讨论。', emojis:'📦 💬', tags:['软件','社区'], catId:'c_software', subId:'s_util' },
