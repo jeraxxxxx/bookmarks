@@ -399,7 +399,7 @@ const AVATAR_COLORS = ['#FF8B9C','#FFA98B','#FFC46B','#8BC9A3','#7FBEE0','#A79BE
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-/* 默认数据：6 个一级分类 · 13 个二级子分类 · 116 条网址 */
+/* 默认数据：6 个一级分类 · 13 个二级子分类 · 117 条网址 */
 const SEED = {
   categories: [
     { id:'c_common', emoji:'🌟', name:'常用网址', subs:[
@@ -554,6 +554,7 @@ const SEED = {
     { id:uid(), name:'LinkSwift', url:'https://github.com/hmjz100/LinkSwift', desc:'油猴脚本版网盘直链下载助手，支持百度网盘、阿里云盘、移动云盘、天翼云盘、迅雷云盘、夸克网盘、UC 网盘、123 云盘八大网盘，一键取直链并调用 IDM、Motrix、aria2 下载。', emojis:'🔗 ⬇️', tags:['网盘','下载'], catId:'c_github', subId:null },
     { id:uid(), name:'Freebie Radar 白嫖雷达', url:'https://github.com/zichuanlan/freebie-radar', desc:'白嫖与资讯资源聚合雷达，100+ 个源定时采集，用 AI 二审过滤假福利，按获取方式分级隔离抽奖、试用与推广内容，并支持 Telegram 即时推送。', emojis:'🎁 📡', tags:['白嫖','资源聚合'], catId:'c_github', subId:null },
     { id:uid(), name:'Game Cheats Manager', url:'https://github.com/dyang886/Game-Cheats-Manager/tree/main', desc:'单机游戏修改器一键下载与管理工具，聚合 WeMod、FLiNG、风灵月影等来源的修改器库，自动匹配游戏进程、支持后台实时更新，Windows 客户端，GPL-3.0 开源。', emojis:'🎮 🛠️', tags:['游戏','修改器'], catId:'c_github', subId:null },
+    { id:uid(), name:'KuroCat', url:'https://github.com/chanke17/KuroCat', desc:'原生 macOS 与 Windows 桌面宠物猫，全状态捕捉键盘鼠标操作，打字和打游戏时都会跟着动，带 2.5D 头部追踪、捕猎式眼神跟随与黑猫、暹罗猫皮肤，MIT 开源。', emojis:'🐱 🖥️', tags:['桌面宠物','开源'], catId:'c_github', subId:null },
     { id:uid(), name:'SimilarSites', url:'https://www.similarsites.com/', desc:'输入任意网址即可发现同类型相似网站，另有浏览器插件，浏览时一键找替代站点。', emojis:'🔍 🌐', tags:['相似网站','发现'], catId:'c_common', subId:'s_search' },
     { id:uid(), name:'SkyArtery 导航', url:'https://skyartery.net/', desc:'个人整理的大型网址导航站，汇总影视、音乐、图书、游戏、软件下载、财经资讯等二十余类资源入口，一站逛遍全网。', emojis:'🧭 🌐', tags:['导航','合集'], catId:'c_common', subId:'s_search' }
   ]
